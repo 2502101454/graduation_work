@@ -11,7 +11,7 @@ class Ceo(models.Model):
     c_sex = models.IntegerField(null=True)
     c_phone = models.CharField(max_length=20, null=True)
     c_email = models.CharField(max_length=30, null=True)
-    c_photo = models.CharField(max_length=200, null=True)
+    c_photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
     c_password = models.CharField(max_length=20)
 
     def __str__(self):
@@ -24,7 +24,7 @@ class Manager(models.Model):
     m_sex = models.IntegerField(null=True)
     m_phone = models.CharField(max_length=20,null=True)
     m_email = models.CharField(max_length=30,null=True)
-    m_photo = models.CharField(max_length=200,null=True)
+    m_photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
     m_password = models.CharField(max_length=20)
     m_ceo_id = models.ForeignKey(Ceo, null=True)
     m_dept_id = models.ForeignKey('Department', null=True)
@@ -49,7 +49,7 @@ class Employee(models.Model):
     e_job = models.CharField(max_length=20, null=True)
     e_phone = models.CharField(max_length=20, null=True)
     e_email = models.CharField(max_length=30, null=True)
-    e_photo = models.CharField(max_length=200, null=True)
+    e_photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
     e_password = models.CharField(max_length=20)
     e_register_time = models.DateTimeField()
     e_dept_id = models.ForeignKey(Department, null=True)

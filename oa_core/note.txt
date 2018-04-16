@@ -1,0 +1,22 @@
+1.解决id问题，id将统统做为办公名片的编号
+员工:e_0001这样开头，部门经理m_0001, CEO c_0001往后递增
+每次插入新员工的时候，先从数据库中查询，按照id排序，截取'_'后面的+1即可
+
+
+开启站点管理页面
+    username: admin 密码是qq密码
+
+
+Django生成的数据表插入中文乱码
+解决:
+    原来自己的数据库在创建的时候没有指定编码方式，删除重建
+    建新数据库的时候加上编码设置
+		CREATE DATABASE mydb
+ 		DEFAULT CHARACTER SET utf8
+  		DEFAULT COLLATE utf8_general_ci
+  	然后重新生成数据表，现在就好了
+
+Most of the time you'll use all(), get(), filter() and exclude()
+这些方法返回的都是QuerySet，A QuerySet represents a collection of objects from your database
+取回多个实体对象使用filter、all、exclude
+通过get可以直接获得一个实体对象，但是要注意不存在或者对应多条记录时报异常！

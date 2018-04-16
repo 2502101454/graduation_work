@@ -1,0 +1,14 @@
+{% extends 'oa_core/base.html' %}
+
+{% block title %}employee register{% endblock title %}
+
+{% block content %}
+    <h2>employee register</h2>
+    <form action="{% url 'oa_core:register' %}" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ form.as_ul }}
+            <input type="submit" value="Submit">
+        </ul>
+    </form>
+{% endblock content %}

@@ -1,0 +1,21 @@
+{% extends "oa_core/base.html" %}
+{% block title %}index{% endblock %}
+{% block content %}
+    {% if user %}
+        {% if role == 'e'%}
+            <h1>欢迎来到首页，{{ user.e_id }}</h1>
+        {% endif %}
+        {% if role == 'm'%}
+            <h1>欢迎来到首页，{{ user.m_id }}</h1>
+        {% endif %}
+        {% if role == 'c'%}
+            <h1>欢迎来到首页，{{ user.c_id }}</h1>
+        {% endif %}
+
+        <a href="#">注销</a>
+
+    {% else %}
+        <a href="{% url 'oa_core:login' %}">登录</a>
+    {% endif %}
+
+{% endblock %}
