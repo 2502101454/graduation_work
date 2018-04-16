@@ -22,19 +22,26 @@ class Common(object):
                 password = form.cleaned_data['password'].strip()
                 print 'username,', username
                 print 'password,', password
-                count = 0
-                if username.startswith('e'):
-                    count = Employee.objects.filter(e_id=username, e_password=password).count()
-                if username.startswith('m'):
-                    count = Manager.objects.filter(m_id=username, m_password=password).count()
-                if username.startswith('c'):
-                    count = Ceo.objects.filter(c_id=username, c_password=password).count()
-
-                if count:
-                    # 登录成功，重定向到首页，首页相关用户信息，使用session传递
-                    request.session['user_id'] = username
-                    return HttpResponseRedirect(reverse('oa_core:index'))
-                else:
+                try:
+                    user = None
+                    if username.startswith('e'):
+                        user = Employee.objects.get(e_id=username, e_password=password)
+                        request.session['role'] = 'e'
+                    if username.startswith('m'):
+                        user = Manager.objects.get(m_id=username, m_password=password)
+                        request.session['role'] = 'm'
+                    if username.startswith('c'):
+                        user = Ceo.objects.get(c_id=username, c_password=password)
+                        request.session['role'] = 'c'
+                    if user:
+                        # 登录成功，重定向到首页，首页相关用户信息，使用session传递
+                        request.session['user'] = user
+                        return HttpResponseRedirect(reverse('oa_core:index'))
+                    else:
+                        # 如果用户输入的username开头都不符合上面的三种
+                        raise Exception('username不符合规范')
+                except Exception as e:
+                    print e
                     # 登录失败，定制错误消息，用户名或密码不存在，继续转发到登录页面
                     return render(request, 'oa_core/login.html', {'msg': '用户名或密码不存在', 'login_form': form})
         else:
@@ -42,24 +49,15 @@ class Common(object):
         return render(request, 'oa_core/login.html', {'login_form': form})
 
     def go_index(self, request):
-        user_id = request.session.get('user_id', '')
-        print 'user_id in session,', user_id
-        # 说明用户之前登录成功过，服务器端的session中一直保存着user_id
-        user = None
+        user = request.session.get('user')
+        role = request.session.get('role')
+        print 'user in session,', user
+        print 'user role in session,', role
         data = {}
-        try:
-            if user_id:
-                if user_id.startswith('e'):
-                    user = Employee.objects.get(pk=user_id)
-                    data['role'] = 'e'
-                if user_id.startswith('m'):
-                    user = Manager.objects.get(pk=user_id)
-                    data['role'] = 'm'
-                if user_id.startswith('c'):
-                    user = Ceo.objects.get(pk=user_id)
-                    data['role'] = 'c'
-
-        except Exception as e:
-            print e
         data['user'] = user
+        data['role'] = role
         return render(request, 'oa_core/index.html', data)
+
+    def logout(self, request):
+        request.session.flush()
+        return HttpResponseRedirect(reverse('oa_core:index'))

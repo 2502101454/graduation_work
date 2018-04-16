@@ -20,3 +20,5 @@ Most of the time you'll use all(), get(), filter() and exclude()
 这些方法返回的都是QuerySet，A QuerySet represents a collection of objects from your database
 取回多个实体对象使用filter、all、exclude
 通过get可以直接获得一个实体对象，但是要注意不存在或者对应多条记录时报异常！
+
+从session中取不存在的值的时候，得到的是None

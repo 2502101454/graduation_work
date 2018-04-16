@@ -23,3 +23,7 @@ def login(request):
 def index(request):
     global common
     return common.go_index(request)
+
+def logout(request):
+    global common
+    return common.logout(request)
