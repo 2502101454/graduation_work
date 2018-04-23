@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    我的加班申请
+{% endblock title%}
+
+{% block content %}
+    <table>
+            <tr>
+                <th>id</th>
+                <th>overtime_date</th>
+                <th>start_hour</th>
+                <th>end_hour</th>
+                <th>hours</th>
+                <th>comment</th>
+                <th>dept_name</th>
+
+            </tr>
+        {% for o_task in o_tasks %}
+            <tr>
+                <td><a href="{% url 'oa_core:overtime_task_detail' o_task.id%}">{{ o_task.id}}</a></td>
+                <td>{{ o_task.overtime_date|date:"Y-m-d" }}</td>
+                <td>{{ o_task.start_hour}}</td>
+                <td>{{ o_task.end_hour}}</td>
+                <td>{{ o_task.hours }}</td>
+                <td>{{ o_task.comment }}</td>
+                <td>{{ o_task.dept_name }}</td>
+            </tr>
+        {% empty %}
+            <li>Sorry, no overtime Task.</li>
+        {% endfor %}
+    </table>
+
+    <a href="{% url "oa_core:add_overtime_task" %}">新建加班申请</a>
+{%endblock content%}
+

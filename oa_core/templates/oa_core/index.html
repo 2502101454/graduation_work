@@ -1,0 +1,38 @@
+{% extends "oa_core/base.html" %}
+{% load  custom_filters%}
+{% block title %}index{% endblock %}
+
+{% block content %}
+    {% if user %}
+{#        e、c、m由于权限菜单栏不相同，可以考虑做成三个bar，然后include#}
+        <h1>欢迎来到首页，{{ user.id }} {{ user.dept}}</h1>
+        {% if role == 'e'%}
+            <ul>
+                <li><a href="{% url 'oa_core:my_holiday_tasks' %}">请假申请</a></li>
+                <li><a href="{% url 'oa_core:my_overtime_tasks' %}">加班申请</a></li>
+                <li><a>报销申请</a></li>
+            </ul>
+        {% endif %}
+
+        {% if role == 'm'%}
+            <a>请假申请</a>
+            <a>请假审批</a>
+            <a>加班申请</a>
+            <a>加班审批</a>
+            <a>报销申请</a>
+            <a>报销审批</a>
+        {% endif %}
+
+        {% if role == 'c'%}
+            <a>请假审批</a>
+            <a>加班审批</a>
+            <a>报销审批</a>
+        {% endif %}
+
+        <a href="{% url 'oa_core:logout' %}">注销</a>
+
+    {% else %}
+        <a href="{% url 'oa_core:login' %}">登录</a>
+    {% endif %}
+
+{% endblock %}

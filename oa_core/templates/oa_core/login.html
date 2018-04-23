@@ -1,0 +1,16 @@
+{% extends "oa_core/base.html" %}
+{% block title %}Log-in{% endblock %}
+{% block content %}
+    <h1>Log-in</h1>
+    <p>Please, use the following form to log-in:</p>
+    <h4>{{ msg }}</h4>
+    <form action="{% url 'oa_core:login' %}" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ login_form.as_ul }}
+            <p><input type="submit" value="Log-in"></p>
+        </ul>
+    </form>
+    <br>
+    <a href="{% url 'oa_core:register' %}">注册</a>
+{% endblock %}

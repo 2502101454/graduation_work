@@ -1,0 +1,36 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    我的请假单
+{% endblock title%}
+
+{% block content %}
+    <table>
+            <tr>
+                <th>id</th>
+                <th>type</th>
+                <th>start_date</th>
+                <th>end_date</th>
+                <th>days</th>
+                <th>comment</th>
+                <th>dept_name</th>
+
+            </tr>
+        {% for h_task in h_tasks %}
+            <tr>
+                <td><a href="{% url 'oa_core:holiday_task_detail' h_task.id%}">{{ h_task.id}}</a></td>
+                <td>{{ h_task.type }}</td>
+                <td>{{ h_task.start_date|date:"Y-m-d" }}</td>
+                <td>{{ h_task.end_date|date:"Y-m-d" }}</td>
+                <td>{{ h_task.days }}</td>
+                <td>{{ h_task.comment }}</td>
+                <td>{{ h_task.dept_name }}</td>
+            </tr>
+        {% empty %}
+            <li>Sorry, no holiday Task.</li>
+        {% endfor %}
+    </table>
+
+    <a href="{% url "oa_core:add_holiday_task" %}">新建请假单</a>
+{%endblock content%}
+

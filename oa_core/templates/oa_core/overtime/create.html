@@ -1,0 +1,15 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    新建请加班申请
+{% endblock title%}
+
+{% block content %}
+    <form action="{% url 'oa_core:add_overtime_task' %}" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ overtime_task_form.as_ul }}
+            <p><input type="submit" value="create"></p>
+        </ul>
+    </form>
+{%endblock content%}
