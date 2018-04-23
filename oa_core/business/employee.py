@@ -35,15 +35,15 @@ class Employee(object):
                 print 'password,', password
                 print 'dept_id,', dept_id
                 e_id = util.next_user_id(prefix='e', digital_bit=5)
-                print 'e_id,', e_id
+                print 'id,', e_id
                 dept = None
                 try:
                     dept = Department.objects.get(pk=dept_id)
                 except Exception as e:
                     print e
 
-                employee = model_Employee(e_id=e_id, e_name='wz'+e_id, e_email=email,
-                                          e_password=password, e_register_time=datetime.now(), e_dept_id=dept)
+                employee = model_Employee(id=e_id, name='wz'+e_id, email=email,
+                                          password=password, register_time=datetime.now(), dept=dept)
                 employee.save()
                 # 后续设计：注册成功，转发到一个注册成功页面，该页面出该员工的员工编号(也可以提示已发送到邮箱)，页面加上去登陆的超链接。
                 return HttpResponseRedirect(reverse('oa_core:login'))

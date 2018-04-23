@@ -22,3 +22,37 @@ Most of the time you'll use all(), get(), filter() and exclude()
 通过get可以直接获得一个实体对象，但是要注意不存在或者对应多条记录时报异常！
 
 从session中取不存在的值的时候，得到的是None
+session取数据只能用get
+
+model里面的类在定义完毕之后，通常需要加上def __str__(self)：可是容易出现
+UnicodeEncodeError: 'ascii' codec can't encode characters in position 0-3的错误
+因为这个是旧版本中用的方法，在Django0.96以后的版本中，换成　def __unicode__(self):
+这样就解决了字符串传递时出错的问题，统一编码为Unicode字符串。
+
+重构代码，以后建模型最好不要将字段带上表名的缩写，这样后续如果多个模型都有相同业务内容的这些字段，那么处理起来将会是一件棘手的事
+model层的模型对于外键字段，在数据表中列名自动加上_id
+
+中文在python命令行中的显示为u'\u7814\u53d1\u4e2d\u5fc3'
+所以直接打印就可以得到对应的中文内容
+
+对于一对一的字段，照常获取关联字段即可
+
+
+引入：现在需要让表单第一次访问的时候就会带上默认值，如何实现？
+Django如何初始化表单的值？
+对于表单字段的值填充有两类：
+    1.bound（设有ContactForm）
+        >>> f = ContactForm()
+        >>> f.is_bound
+        False
+        >>> f = ContactForm({'subject': 'hello'})
+        >>> f.is_bound
+        True
+
+       注：绑定值后的表单返回到前台页面就会做校验，是会把错误消息顺便显示到前台
+    2.initial
+        f = ContactForm(initial={'name':'Dean'})
+        Only include the fields for which you’re specifying an initial value; it’s not necessary to include every field in your form.
+        These values are only displayed for unbound forms
+如何初始化一个choices字段？
+        首先需要在表单中定义choices类型字段的时候就指定好choices集合，然后initial中指定，具体看HolidayTaskForm的dept字段的默认值指定

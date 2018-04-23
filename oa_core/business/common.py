@@ -25,13 +25,13 @@ class Common(object):
                 try:
                     user = None
                     if username.startswith('e'):
-                        user = Employee.objects.get(e_id=username, e_password=password)
+                        user = Employee.objects.get(id=username, password=password)
                         request.session['role'] = 'e'
                     if username.startswith('m'):
-                        user = Manager.objects.get(m_id=username, m_password=password)
+                        user = Manager.objects.get(id=username, password=password)
                         request.session['role'] = 'm'
                     if username.startswith('c'):
-                        user = Ceo.objects.get(c_id=username, c_password=password)
+                        user = Ceo.objects.get(id=username, password=password)
                         request.session['role'] = 'c'
                     if user:
                         # 登录成功，重定向到首页，首页相关用户信息，使用session传递

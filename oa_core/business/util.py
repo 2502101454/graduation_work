@@ -16,8 +16,8 @@ class DeanUtil(object):
             if Employee.objects.count() == 0:
                 suffix = ('{:0>'+str(digital_bit)+'d}').format(1)
             else:
-                emp = Employee.objects.order_by(Lower('e_id').desc())[0]
-                suffix = self.__next_suffix(emp.e_id, digital_bit)
+                emp = Employee.objects.order_by(Lower('id').desc())[0]
+                suffix = self.__next_suffix(emp.id, digital_bit)
 
         if prefix == 'm':
             pass
@@ -40,8 +40,13 @@ class DeanUtil(object):
     # 得到部门的tuple(id, name)
     @classmethod
     def dept_choices(cls):
-        depts = Department.objects.all().order_by('d_id')
+        depts = Department.objects.all().order_by('id')
         res = []
         for dept in depts:
-            res.append((dept.d_id, dept.d_name))
+            res.append((dept.id, dept.name))
         return res
+
+    # 计算请假的天数，请假日期范围是[start,end]闭区间
+    def holiday_task_days(self, start, end):
+        # 两个datetime对象相减得到的是timedelta对象
+        return (end - start).days + 1
