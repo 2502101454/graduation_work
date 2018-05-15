@@ -1,14 +1,81 @@
-{% load staticfiles %}
+{% load static %}
 <!DOCTYPE html>
-<html>    
-    <head>      
-        <title>{% block title %}{% endblock %}</title>
-    </head>
-    <body>      
-        <div id="content">
-            {% block content %}        
-            {% endblock %}      
-        </div>    
-    </body>    
-</html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1.0,
+                                     user-scalable=no">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title>{% block title %}base{% endblock %}</title>
+    <link rel="icon" href="{% static 'oa_core/images/favicon2.png' %}">
+    <!-- Bootstrap -->
+    <link href="{% static 'oa_core/bootstrap_dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
+
+    <link href="{% static 'oa_core/css/ie10-viewport-bug-workaround.css' %}" rel="stylesheet">
+    <script src="{% static 'oa_core/js/ie-emulation-modes-warning.js' %}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    {% block css %}{% endblock %}
+  </head>
+  <body>
+  {% block navbar %}
+    <!-- NAVBAR
+    ================================================== -->
+    <div class="navbar-wrapper">
+      <div class="container">
+        <nav class="navbar navbar-inverse navbar-static-top">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="{% url 'oa_core:index' %}">Dean OA</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav">
+                <li class="active"><a href="{% url 'oa_core:index' %}">Home</a></li>
+
+                {% block navbar-left%}
+
+                {% endblock %}
+              </ul>
+              <!--right side 默认登录注册-->
+              {% block navbar-right %}
+                  <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{% url 'oa_core:login' %}">登录</a></li>
+                    <li><a href="{% url 'oa_core:register' %}">注册</a></li>
+                  </ul>
+              {%  endblock%}
+            </div>
+
+          </div>
+        </nav>
+       </div>
+    </div>
+    {% endblock %}
+    <!-- Carousel
+    ================================================== -->
+    {% block content %}{% endblock %}
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'oa_core/bootstrap_dist/js/bootstrap.min.js'%}"></script>
+
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{% static 'oa_core/js/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'oa_core/js/ie10-viewport-bug-workaround.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,15 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    报销单详情
+{% endblock title%}
+
+{% block content %}
+    <form action="#" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ cost_task_form.as_ul }}
+{#            <p><input type="submit" value="update"></p>#}
+        </ul>
+    </form>
+{%endblock content%}

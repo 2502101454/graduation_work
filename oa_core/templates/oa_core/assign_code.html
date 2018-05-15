@@ -1,0 +1,27 @@
+{% extends "oa_core/base.html" %}
+{% load static %}
+{% block title %}assign code{% endblock %}
+{% block css %}
+    <link href="{% static 'oa_core/css/jumbotron-narrow.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block navbar %}{% endblock %}
+{% block content %}
+    <div class="container">
+      <div class="header clearfix">
+        <nav>
+          <ul class="nav nav-pills pull-right">
+            <li role="presentation" class="active"><a href="{% url 'oa_core:index' %}">Home</a></li>
+          </ul>
+        </nav>
+        <h3 class="text-muted">Dean OA</h3>
+      </div>
+
+      <div class="jumbotron">
+          <h2>registration success!</h2>
+        <h1>Id code:{{ code }}</h1>
+        <p class="lead">This code value will be the username for accessing Dean OA system! The generation process depends on the role of the user，
+        it looks like a serial number。you can not modify it after you login, attention that！</p>
+        <p><a class="btn btn-lg btn-success" href="{% url 'oa_core:login' %}" role="button">straightforward login</a></p>
+      </div>
+{%endblock content%}

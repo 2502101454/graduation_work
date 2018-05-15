@@ -1,0 +1,15 @@
+{% extends "../base.html" %}
+
+{% block title %}
+    新建报销
+{% endblock title%}
+
+{% block content %}
+    <form action="{% url 'oa_core:add_cost_task' %}" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ cost_task_form.as_ul }}
+            <p><input type="submit" value="create"></p>
+        </ul>
+    </form>
+{%endblock content%}

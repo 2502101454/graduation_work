@@ -1,0 +1,39 @@
+{% extends "../base.html" %}
+{% load custom_filters %}
+{% block title %}
+    审批报销单
+{% endblock title%}
+
+{% block content %}
+    <table>
+            <tr>
+                <th>id</th>
+                <th>submit_date_time</th>
+                <th>type</th>
+                <th>detail</th>
+                <th>operation</th>
+                <th>current_status</th>
+            </tr>
+        {% for c_task in c_tasks %}
+            <tr>
+                <td>{{ c_task.id}}</td>
+                <td>{{ c_task.submit_date_time | date:"Y-m-d h:i:s"}}</td>
+                <td>{{ c_task.type | cost_type}}</td>
+                <td><a href="{% url 'oa_core:cost_task_detail' c_task.id%}">详情</a></td>
+                <td>
+                    {% if c_task.status  == 1 %}
+                        <a href="{% url 'oa_core:cost_task_approve' c_task.id %}">同意</a>|
+                        <a href="{% url 'oa_core:cost_task_negative' c_task.id %}">驳回</a>
+                    {% else %}
+                        --
+                    {% endif %}
+                </td>
+                <td>{{ c_task.status | current_status }}</td>
+            </tr>
+        {% empty %}
+            <li>Sorry, no cost Task submit to here.</li>
+        {% endfor %}
+    </table>
+
+{%endblock content%}
+

@@ -10,6 +10,7 @@ from ..models import Employee as model_Employee
 from ..models import Department
 from datetime import datetime
 from ..forms import LoginForm
+import json
 util = DeanUtil()
 
 class Employee(object):
@@ -17,22 +18,23 @@ class Employee(object):
     def __int__(self):
         pass
 
-    # 注册逻辑：填写邮箱、密码、确认密码后，做数据校验，然后成功的话，调用后台生成对应的员工编号，发到邮箱中，
-    # 发送成功，数据写入数据库，然后跳转至登录页面，进行登录。
-    # 这里先不进行密码和重复密码的一致性校验、邮箱发送，现在直接生成员工编号，放到登录页面。
     def em_register(self, request):
         # if this is a POST request we need to process the form data
         if request.method == 'POST':
-            # create a form instance and populate it with data from the request:
+            result = {'status': False, 'message': None}
             form = EmRegisterForm(request.POST)
-            # check whether it's valid:
+            #The form's data will be validated the first time either you call is_valid() or access errors.
+            errors = form.errors
+            # 所以说哎，is_valid肯定是在没有一个错误的情况下，才会返回true。你要是在之前add_error了，那肯定就是false
             if form.is_valid():
                 # process the data in form.cleaned_data as required
                 email = form.cleaned_data['email']
                 password = form.cleaned_data['password']
+                password_agin = form.cleaned_data['password_again']
                 dept_id = form.cleaned_data['dept']
                 print 'email,', email
                 print 'password,', password
+                print 'password_agin,', password_agin
                 print 'dept_id,', dept_id
                 e_id = util.next_user_id(prefix='e', digital_bit=5)
                 print 'id,', e_id
@@ -45,10 +47,17 @@ class Employee(object):
                 employee = model_Employee(id=e_id, name='wz'+e_id, email=email,
                                           password=password, register_time=datetime.now(), dept=dept)
                 employee.save()
-                # 后续设计：注册成功，转发到一个注册成功页面，该页面出该员工的员工编号(也可以提示已发送到邮箱)，页面加上去登陆的超链接。
-                return HttpResponseRedirect(reverse('oa_core:login'))
+                request.session['register_user_code'] = e_id
+                result['status'] = True
+                return HttpResponse(json.dumps(result))
+            else:
+                errors_str = errors.as_json()
+                print 'valid error:', errors, '\n', errors_str
+                result['message'] = json.loads(errors_str)
+                return HttpResponse(json.dumps(result))
         # if a GET (or any other method) we'll create a blank form
         else:
-            form = EmRegisterForm()
-
-        return render(request, 'oa_core/register.html', {'form': form})
+            pass
+        # 查询部门
+        depts = Department.objects.all()
+        return render(request, 'oa_core/register.html', {'depts': depts})

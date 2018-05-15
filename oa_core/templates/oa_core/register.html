@@ -1,14 +1,132 @@
-{% extends 'oa_core/base.html' %}
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'oa_core/images/favicon2.png' %}">
 
-{% block title %}employee register{% endblock title %}
+    <title>register</title>
 
-{% block content %}
-    <h2>employee register</h2>
-    <form action="{% url 'oa_core:register' %}" method="post">
-        <ul>
-            {% csrf_token %}
-            {{ form.as_ul }}
-            <input type="submit" value="Submit">
-        </ul>
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'oa_core/bootstrap_dist/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'oa_core/css/register.css' %}" rel="stylesheet">
+      <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+
+  </head>
+  <body class="text-center">
+    <form class="form-signin" id="register-form">
+      <img class="mb-4" src="{% static 'oa_core/images/favicon3.png' %}" name="" width="72" height="72"/>
+        <input type="email" id="email" name="email" class="form-control" placeholder="邮箱" required autofocus>
+        <span class="error-message" name="email"></span>
+        <input type="password" name="password" id="password" class="form-control" placeholder="密码" required/>
+        <span class="error-message" name="password"></span>
+        <input type="password" name="password_again" id="password_again" class="form-control" placeholder="重复密码" required/>
+        <span class="error-message" name="password_again"></span>
+        <select class="form-control" name="dept">
+            {% for dept in depts %}
+                <option value="{{ dept.id }}">{{ dept.name }}</option>
+            {% endfor %}
+        </select>
+      <button class="btn btn-lg btn-primary btn-block" onclick="SubmitForm()">注册</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
-{% endblock content %}
+  </body>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script type="text/javascript" src="{% static 'oa_core/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'oa_core/bootstrap_dist/js/bootstrap.min.js'%}"></script>
+
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{% static 'oa_core/js/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'oa_core/js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <script type="text/javascript">
+        // using jQuery
+        function getCookie(name) {
+            var cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                var cookies = document.cookie.split(';');
+                for (var i = 0; i < cookies.length; i++) {
+                    var cookie = jQuery.trim(cookies[i]);
+                    // Does this cookie string begin with the name we want?
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        var csrftoken = getCookie('csrftoken');
+
+        function csrfSafeMethod(method) {
+            // 这些HTTP方法不要求CSRF包含
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        //表单里的button都不是submit了，点击了还有默认行为。。只能取消，然后采用ajax同步(此时页面也就只有ajax可以发送请求，同异步都行)
+        var myform = document.getElementById('register-form');
+        myform.onsubmit = function () {
+            return false
+        }
+
+        //login Ajax logic
+        function SubmitForm(){
+            var input_dict = {};
+            $('input').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            $('select').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+
+
+            var description = "";
+            for (var i in input_dict) {
+                description += i + " = " + input_dict[i] + "\n";
+            }
+            alert(description);
+
+
+            $.ajax({
+                async: false,
+                url: '{% url "oa_core:register" %}',
+                type: 'POST',
+                data: input_dict,
+                dataType: 'json',
+                success: function(callback){
+                   if(callback.status){
+                        location.href = '{% url "oa_core:register_success" %}';
+                   }else{
+                       $('span[name="email"]').text('')
+                       $('span[name="password"]').text('')
+                       $('span[name="password_again"]').text('')
+                       $.each(callback.message, function (k,v) {
+                           var str = v[0].message;
+                           $('span[name="' + k + '"]').text(str);
+                       })
+                   }
+                }
+            })
+        }
+    </script>
+</html>

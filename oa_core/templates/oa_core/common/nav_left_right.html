@@ -1,0 +1,52 @@
+{% block navbar-left %}
+    {% if user %}
+        {% if role == 'e'%}
+            <li><a href="{% url 'oa_core:my_holiday_tasks' %}">请假申请</a></li>
+            <li><a href="{% url 'oa_core:my_overtime_tasks' %}">加班申请</a></li>
+            <li><a href="{% url 'oa_core:my_cost_tasks' %}">报销申请</a></li>
+        {% elif role == 'm'%}
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">请假 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="{% url 'oa_core:my_holiday_tasks' %}">请假申请</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'oa_core:subordinate_holiday_tasks' %}">请假审批</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">加班 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="{% url 'oa_core:my_overtime_tasks' %}">加班申请</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'oa_core:subordinate_overtime_tasks' %}">加班审批</a></li>
+              </ul>
+            </li>
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">报销 <span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                  <li><a href="{% url 'oa_core:my_cost_tasks' %}">报销申请</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href="{% url 'oa_core:subordinate_cost_tasks' %}">报销审批</a></li>
+              </ul>
+            </li>
+        {% elif role == 'c'%}
+            <li><a href="{% url 'oa_core:subordinate_holiday_tasks' %}">请假审批</a></li>
+            <li><a href="{% url 'oa_core:subordinate_overtime_tasks' %}">加班审批</a></li>
+            <li><a href="{% url 'oa_core:subordinate_cost_tasks' %}">报销审批</a></li>
+        {% endif %}
+        <li class="active"><a href="#" disabled>{{ user.dept }}</a></li>
+    {% endif %}
+{% endblock navbar-left %}
+
+{% block navbar-right %}
+      {% if user %}
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">个人中心</a></li>
+            <li><a href="{% url 'oa_core:logout' %}">注销</a></li>
+          </ul>
+      {% else %}
+          {{ block.super }}
+      {% endif %}
+{% endblock %}

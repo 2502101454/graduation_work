@@ -1,0 +1,15 @@
+{% extends "../index.html" %}
+
+{% block title %}
+    请假单详情
+{% endblock title%}
+
+{% block content %}
+    <form action="{% url 'oa_core:update_holiday_task' %}" method="post">
+        <ul>
+            {% csrf_token %}
+            {{ holiday_task_form.as_ul }}
+            <p><input type="submit" value="update"></p>
+        </ul>
+    </form>
+{%endblock content%}

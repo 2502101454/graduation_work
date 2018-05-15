@@ -2,3 +2,14 @@
 对start_date和end_date的后台大小合法进行校验
 对于单据记录的显示页面,(删除 | 提交 | 更新)，   当前状态；或者能找到更好的适应小屏幕的展示方案
 加班小时的前后大小校验，
+
+界面设计:
+    6/5个字段显示
+    id   create_time     [type]      a_detail    a_operation     a_current_status
+
+
+    对于operation的链接到的view层，设计装饰器
+    can_delete
+    can_update
+    can_submit
+    加在view的方法上，然后这些底层统统调用业务类的change_status方法即可
