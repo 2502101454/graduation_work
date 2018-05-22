@@ -26,6 +26,9 @@
     {% block css %}{% endblock %}
   </head>
   <body>
+
+
+
   {% block navbar %}
     <!-- NAVBAR
     ================================================== -->
@@ -63,7 +66,7 @@
         </nav>
        </div>
     </div>
-    {% endblock %}
+  {% endblock navbar %}
     <!-- Carousel
     ================================================== -->
     {% block content %}{% endblock %}
@@ -77,5 +80,6 @@
     <script src="{% static 'oa_core/js/holder.min.js' %}"></script>
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="{% static 'oa_core/js/ie10-viewport-bug-workaround.js' %}"></script>
+    {% block js %}{% endblock %}
   </body>
 </html>

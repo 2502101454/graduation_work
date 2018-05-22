@@ -1,0 +1,60 @@
+{% extends "../index.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    用户详情
+{% endblock title%}
+
+
+{% block content %}
+    <div class="container" style="margin-top: 70px">
+        <div class="row">
+            <div class="col-md-2 col-md-offset-2">
+                <h4>用户详情</h4>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-md-offset-2">
+                <img src="{% static 'oa_core/images/squirrel2.jpg' %}" alt="暂无" class="img-rounded" width="120" height="120">
+            </div>
+        </div>
+        <div class="row" style="margin-top: 10px">
+            <div class="col-md-8 col-md-offset-2">
+                <table class="table">
+                    <tr class="active">
+                        <td>id:</td>
+                        <td>{{ id }}</td>
+                        <td>姓名:</td>
+                        <td>{{ name |default_if_none:'--'}}</td>
+                        <td>性别:</td>
+                        <td>{{ sex |default_if_none:'2' | sex_ch}}</td>
+                    </tr>
+                    <tr class="active">
+                        <td>电话:</td>
+                        <td>{{ phone |default_if_none:'--'}}</td>
+                        <td>邮件:</td>
+                        <td>{{ email |default_if_none:'--'}}</td>
+                        <td>注册时间:</td>
+                        <td>{{ register_time |default_if_none:'--'| date:"Y-m-d h:i:s" }}</td>
+                    </tr>
+                    <tr class="active">
+                        <td>部门:</td>
+                        <td>{{ dept |default_if_none:'--'}}</td>
+                        <td>工作:</td>
+                        <td>{{ job |default_if_none:'--'}}</td>
+                        <td>上级:</td>
+                        <td>{{ upper |default_if_none:'--'}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="row" style="margin-top: 30px">
+            <div class="col-md-2 col-md-offset-4">
+                <a href="#" class="btn btn-info">编辑</a>
+            </div>
+            <div class="col-md-2">
+                <a href="#" class="btn btn-warning">修改密码</a>
+            </div>
+        </div>
+    </div>
+{%endblock content%}

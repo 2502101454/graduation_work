@@ -3,6 +3,7 @@
 ##########
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from ..forms import LoginForm
@@ -14,6 +15,7 @@ class Common(object):
     def __int__(self):
         pass
 
+    @csrf_exempt
     def user_login(self, request):
         if request.method == 'POST':
             result = {'status': False, 'message': None}
@@ -76,3 +78,30 @@ class Common(object):
     def logout(self, request):
         request.session.flush()
         return HttpResponseRedirect(reverse('oa_core:index'))
+
+    def user_center(self, request):
+        user = request.session.get('user')
+        id = user.id
+        user_info = {'id': user.id,
+                     'name': user.name,
+                     'sex': user.sex,
+                     'phone': user.phone,
+                     'email': user.email,
+                     'photo': user.photo,
+                     'register_time': '',
+                     'dept': '',
+                     'job': '',
+                     'upper': ''
+                     }
+        if id.startswith('e'):
+            user_info['dept'] = user.dept.name
+            user_info['register_time'] = user.register_time
+            user_info['job'] = user.job
+            user_info['upper'] = user.dept.manager.id
+        elif id.startswith('m'):
+            user_info['dept'] = user.dept.name
+            user_info['upper'] = user.ceo.id
+        elif id.startswith('c'):
+            user_info['dept'] = user.dept
+
+        return render(request, 'oa_core/user/user_detail.html', context=user_info)

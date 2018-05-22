@@ -35,3 +35,9 @@ def current_status(value):
         return res[int(value)]
     except Exception as e:
         return value
+
+@register.filter
+@stringfilter
+def sex_ch(value):
+    res = ['女', '男', '--']
+    return res[int(value)]

@@ -8,8 +8,10 @@ from util import DeanUtil
 from ..models import CostTask as Model_CostTask
 from ..models import Department
 from datetime import datetime
-from ..forms import CostTaskForm
+from ..forms import CostTaskForm, SearchForm
 from django.db.models import Q
+from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
+import json
 util = DeanUtil()
 
 class CostTask(object):
@@ -21,11 +23,63 @@ class CostTask(object):
         user = request.session['user']
         sponsor = user.id
         # model层的单据的发起人、直接上级都是逻辑外键，只是一个charField
-        res = Model_CostTask.objects.filter(sponsor=sponsor)
-        return render(request, 'oa_core/cost/search.html', {'c_tasks': res})
+        my_own_ctask = Model_CostTask.objects.filter(sponsor=sponsor)
+        res_data = {}
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            create_date = form.cleaned_data['create_date']
+            type_choice = form.cleaned_data['type_choice']
+            status = form.cleaned_data['status']
+            page_no = form.cleaned_data['page_no']
+            print 'type_choice', type_choice
+            print 'status', status
+
+            if create_date:
+                print 'create_date:', create_date
+                my_own_ctask = my_own_ctask.filter(create_date_time__gte=create_date)
+            # 对于None, None>=0 是False
+            if type_choice >= 0:
+                print 'type_choice:', type_choice
+                my_own_ctask = my_own_ctask.filter(type=type_choice)
+            if status >= 0:
+                print 'status:', status
+                my_own_ctask = my_own_ctask.filter(status=status)
+
+            paginator = Paginator(my_own_ctask, 5)
+            if page_no > 0:
+                print 'page_no:', page_no
+                try:
+                    page_obj = paginator.page(page_no)
+                except Exception as e:
+                    print 'page has exception:', e
+                    page_obj = paginator.page(1)
+            else:
+                page_obj = paginator.page(1)
+
+            print 'page_obj number :', page_obj.number
+            print 'page_obj.obj_list :', page_obj.object_list
+            print 'page_obj.paginator.num_pages ', page_obj.paginator.num_pages
+            print 'page_obj.paginator.count ', page_obj.paginator.count
+
+            res_data['page_obj'] = page_obj
+            res_data['search_condition'] = {
+                'create_date': create_date,
+                'type_choice': type_choice,
+                'status': status,
+            }
+        else:
+            print form.errors.as_json()
+            # 默认5条数据
+            paginator = Paginator(my_own_ctask, 5)
+            # 默认第一页
+            page_obj = paginator.page(1)
+            res_data['page_obj'] = page_obj
+
+        return render(request, 'oa_core/cost/search.html', res_data)
 
     # 新增报销单
     def add_cost_task(self, request):
+        res = {'status': False, 'message': None}
         if request.method == 'POST':
             form = CostTaskForm(request.POST)
             if form.is_valid():
@@ -49,14 +103,19 @@ class CostTask(object):
                                        dept_name=user.dept.name, sponsor=user.id, straight_upper=upper_id,
                                        create_date_time=datetime.now(), status=0)
                 ct.save()
-                return HttpResponseRedirect(reverse('oa_core:my_cost_tasks'))
+                res['status'] = True
+                return HttpResponse(json.dumps(res))
+            else:
+                error_json = form.errors.as_json()
+                print 'error_json:', error_json
+                error_body = util.error_body(error_json)
+                res['message'] = error_body
+                return HttpResponse(json.dumps(res))
         else:
             user = request.session.get('user')
             # 指定tuple中第一个值来进行设置默认
             # form = HolidayTaskForm(initial={'dept': user.dept.id})
-            form = CostTaskForm(initial={'dept_name': user.dept.name})
-
-        return render(request, 'oa_core/cost/create.html', {'cost_task_form': form})
+            return render(request, 'oa_core/cost/create.html', {'dept_name': user.dept.name})
 
     # 查询报销单的具体内容
     def cost_task_detail(self, request, ct_id):
@@ -67,11 +126,13 @@ class CostTask(object):
         initial_data['amount'] = cost_task.amount
         initial_data['comment'] = cost_task.comment
         initial_data['dept_name'] = cost_task.dept_name
-        form = CostTaskForm(initial=initial_data)
-        return render(request, 'oa_core/cost/detail.html', {'cost_task_form': form})
+        initial_data['sponsor'] = cost_task.sponsor
+        initial_data['straight_upper'] = cost_task.straight_upper
+        return render(request, 'oa_core/cost/detail.html', initial_data)
 
     # # 更新请假单
     def update_cost_task(self, request, ct_id=None):
+        res = {'status': False, 'message': None}
         if request.method == 'POST':
             form = CostTaskForm(request.POST)
             if form.is_valid():
@@ -94,10 +155,14 @@ class CostTask(object):
                 cost_task.comment = comment
 
                 cost_task.save()
-                return HttpResponseRedirect(reverse('oa_core:my_cost_tasks'))
+                res['status'] = True
+                return HttpResponse(json.dumps(res))
             else:
-                return render(request, 'oa_core/cost/update.html', {'cost_task_form': form})
-
+                error_json = form.errors.as_json()
+                print 'error_json:', error_json
+                error_body = util.error_body(error_json)
+                res['message'] = error_body
+                return HttpResponse(json.dumps(res))
         else:
             cost_task = get_object_or_404(Model_CostTask, pk=ct_id)
             initial_data = {}
@@ -106,8 +171,7 @@ class CostTask(object):
             initial_data['amount'] = cost_task.amount
             initial_data['comment'] = cost_task.comment
             initial_data['dept_name'] = cost_task.dept_name
-            form = CostTaskForm(initial=initial_data)
-            return render(request, 'oa_core/cost/update.html', {'cost_task_form': form})
+            return render(request, 'oa_core/cost/update.html', initial_data)
 
     def cost_task_delete(self, request, ct_id):
         obj = Model_CostTask.objects.get(pk=ct_id)
@@ -135,8 +199,60 @@ class CostTask(object):
         user = request.session['user']
         straight_upper = user.id
         # model层的单据的发起人、直接上级都是逻辑外键，只是一个charField
-        res = Model_CostTask.objects.filter(Q(status=1) | Q(status=2) | Q(status=3), straight_upper=straight_upper)
-        return render(request, 'oa_core/cost/sp_search.html', {'c_tasks': res})
+        my_sub_ctask = Model_CostTask.objects.filter(Q(status=1) | Q(status=2) | Q(status=3), straight_upper=straight_upper)
+
+        res_data = {}
+        form = SearchForm(request.GET)
+        if form.is_valid():
+            create_date = form.cleaned_data['create_date']
+            type_choice = form.cleaned_data['type_choice']
+            status = form.cleaned_data['status']
+            page_no = form.cleaned_data['page_no']
+            print 'type_choice', type_choice
+            print 'status', status
+
+            if create_date:
+                print 'create_date:', create_date
+                my_sub_ctask = my_sub_ctask.filter(submit_date_time__gte=create_date)
+            # 对于None, None>=0 是False
+            if type_choice >= 0:
+                print 'type_choice:', type_choice
+                my_sub_ctask = my_sub_ctask.filter(type=type_choice)
+            if status >= 0:
+                print 'status:', status
+                my_sub_ctask = my_sub_ctask.filter(status=status)
+
+            paginator = Paginator(my_sub_ctask, 5)
+            if page_no > 0:
+                print 'page_no:', page_no
+                try:
+                    page_obj = paginator.page(page_no)
+                except Exception as e:
+                    print 'page has exception:', e
+                    page_obj = paginator.page(1)
+            else:
+                page_obj = paginator.page(1)
+
+            print 'page_obj number :', page_obj.number
+            print 'page_obj.obj_list :', page_obj.object_list
+            print 'page_obj.paginator.num_pages ', page_obj.paginator.num_pages
+            print 'page_obj.paginator.count ', page_obj.paginator.count
+
+            res_data['page_obj'] = page_obj
+            res_data['search_condition'] = {
+                'create_date': create_date,
+                'type_choice': type_choice,
+                'status': status,
+            }
+        else:
+            print form.errors.as_json()
+            # 默认5条数据
+            paginator = Paginator(my_sub_ctask, 5)
+            # 默认第一页
+            page_obj = paginator.page(1)
+            res_data['page_obj'] = page_obj
+
+        return render(request, 'oa_core/cost/sp_search.html', res_data)
 
     def cost_task_approve(self, request, ct_id):
         self.change_status(ct_id=ct_id, next_status=2)

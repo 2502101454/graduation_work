@@ -13,3 +13,5 @@
     can_update
     can_submit
     加在view的方法上，然后这些底层统统调用业务类的change_status方法即可
+
+详情页面加上申请人

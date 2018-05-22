@@ -1,15 +1,146 @@
 {% extends "../index.html" %}
-
+{% load static %}
 {% block title %}
-    请假单详情
+    修改单详情
 {% endblock title%}
+{% block css %}
+    <style>
+        .error-message
+        {
+            color: red;
+        }
+    </style>
+{% endblock css %}
 
 {% block content %}
-    <form action="{% url 'oa_core:update_holiday_task' %}" method="post">
-        <ul>
-            {% csrf_token %}
-            {{ holiday_task_form.as_ul }}
-            <p><input type="submit" value="update"></p>
-        </ul>
-    </form>
+    <div class="row">
+            <div class="col-md-3 col-md-offset-5">
+                <h3>请假单内容</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="{% url 'oa_core:update_holiday_task' %}" method="post" id="update_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="ht_id" id="ht_id" value="{{ ht_id }}">
+                    <div class="form-group">
+                        <label for="ht_type">类型</label>
+                        <select class="form-control" name="ht_type">
+                            <option value="0"
+                                {% if ht_type == 0 %}
+                                    selected
+                                {% endif %}
+                            >事假</option>
+                            <option value="1"
+                                {% if ht_type == 1 %}
+                                        selected
+                                {% endif %}
+                            >病假</option>
+                            <option value="2"
+                                {% if ht_type == 2 %}
+                                    selected
+                                {% endif %}
+                            >婚假</option>
+                            <option value="3"
+                                {% if ht_type == 3 %}
+                                    selected
+                                {% endif %}
+                            >产假</option>
+                            <option value="4"
+                                {% if ht_type == 4 %}
+                                    selected
+                                {% endif %}
+                            >年假</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_range">日期范围</label>
+                        <input type="text" class="form-control" id="date_range" name="date_range" value="{{ date_range }}">
+                       <span class="error-message" name="date_range"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">备注</label>
+                        <textarea class="form-control" rows="3" name="comment" id="comment">{{ comment }}</textarea>
+                        <span class="error-message" name="comment"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept_name">部门名称</label>
+                        <input class="form-control" name="dept_name" id="dept_name" readonly value="{{ dept_name }}"/>
+                    </div>
+                      <button type="submit" class="btn btn-danger" onclick="SubmitForm()">更新</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
 {%endblock content%}
+
+
+{% block js %}
+    <script src="{% static 'oa_core/layDate-v5.0.9/laydate/laydate.js' %}"></script>
+    <script>
+        //日期范围
+        laydate.render({
+            elem: '#date_range'
+            ,range: true
+            ,theme: '#393D49'
+        });
+
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        function csrfSafeMethod(method) {
+            // 这些HTTP方法不要求CSRF包含
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        //表单里的button都不是submit了，点击了还有默认行为。。只能取消，然后采用ajax同步(此时页面也就只有ajax可以发送请求，同异步都行)
+        var myform = document.getElementById('update_form');
+        myform.onsubmit = function () {
+            return false
+        };
+
+        //login Ajax logic
+        function SubmitForm(){
+            var input_dict = {};
+            $('input').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            $('textarea').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            $('select').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            $.ajax({
+                async: false,
+                url: '{% url 'oa_core:update_holiday_task' %}',
+                type: 'POST',
+                data: input_dict,
+                dataType: 'json',
+                success: function(callback){
+                   if(callback.status){
+                        location.href = '{% url "oa_core:my_holiday_tasks" %}';
+                   }else{
+                       $('span[name="date_range"]').text('');
+                       $('span[name="comment"]').text('');
+                       $.each(callback.message, function (k,v) {
+                           $('span[name="' + k + '"]').text(v);
+                       })
+                   }
+                }
+            })
+        }
+    </script>
+{% endblock js %}

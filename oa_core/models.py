@@ -78,7 +78,7 @@ class HolidayTask(models.Model):
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 
 
 class OvertimeTask(models.Model):
@@ -100,7 +100,7 @@ class OvertimeTask(models.Model):
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 
 
 class CostTask(models.Model):
@@ -121,5 +121,5 @@ class CostTask(models.Model):
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 

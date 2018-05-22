@@ -69,22 +69,29 @@ class HolidayTaskForm(forms.Form):
     ]
     ht_id = forms.CharField(required=False, widget=forms.HiddenInput)
     ht_type = forms.ChoiceField(choices=type_choices)
-    start_date = forms.DateField()
-    end_date = forms.DateField()
-    comment = forms.CharField(widget=forms.Textarea)
+    date_range = forms.CharField(error_messages={'required': '日期范围不能为空'})
+    comment = forms.CharField(widget=forms.Textarea, error_messages={'required': '备注不能为空'})
     # dept = forms.ChoiceField(choices=DeanUtil.dept_choices(), widget=forms.Select(attrs={'disabled': True}))  # 由前往该表单的用户初始化
     dept_name = forms.CharField(max_length=10, min_length=3, widget=forms.TextInput(attrs={'readonly': True}))
 
 
 class OvertimeTaskForm(forms.Form):
     ot_id = forms.CharField(required=False, widget=forms.HiddenInput)
-    overtime_date = forms.DateField()
+    overtime_date = forms.DateField(error_messages={'required': '加班日期必填'})
     # start_hour = forms.CharField(widget=forms.NumberInput(attrs={'max': 23, 'min': 0}))
     # end_hour = forms.CharField(widget=forms.NumberInput(attrs={'max': 23, 'min': 0}))
-    start_hour = forms.IntegerField(max_value=23, min_value=0)
-    end_hour = forms.IntegerField(max_value=23, min_value=0)
-    comment = forms.CharField(widget=forms.Textarea)
+    start_hour = forms.IntegerField(max_value=23, min_value=0, error_messages={'required': '起始时间必填'})
+    end_hour = forms.IntegerField(max_value=23, min_value=0, error_messages={'required': '结束时间必填'})
+    comment = forms.CharField(widget=forms.Textarea, error_messages={'required': '备注必填'})
     dept_name = forms.CharField(max_length=10, min_length=3, widget=forms.TextInput(attrs={'readonly': True}))
+
+    def clean(self):
+        start_hour = self.cleaned_data.get("start_hour")
+        end_hour = self.cleaned_data.get("end_hour")
+        if start_hour and end_hour and start_hour < end_hour:
+            pass
+        else:
+            self.add_error('end_hour', '结束时间应该大于开始时间')
 
 
 class CostTaskForm(forms.Form):
@@ -96,9 +103,17 @@ class CostTaskForm(forms.Form):
 
     ct_id = forms.CharField(required=False, widget=forms.HiddenInput)
     type = forms.ChoiceField(choices=type_choices)
-    comment = forms.CharField(widget=forms.Textarea)
-    amount = forms.FloatField(max_value=999999, min_value=0)
+    comment = forms.CharField(widget=forms.Textarea, error_messages={'required': '备注必填'})
+    amount = forms.FloatField(max_value=999999, min_value=0, error_messages={'required': '金额必填', 'invalid': '请输入数字'})
     dept_name = forms.CharField(max_length=10, min_length=3, widget=forms.TextInput(attrs={'readonly': True}))
+
+
+class SearchForm(forms.Form):
+    create_date = forms.DateField(required=False)
+    # integer field，前台如果传递的是数字字符串能转了就转，传空串，转不了就是None
+    type_choice = forms.IntegerField(required=False)
+    status = forms.IntegerField(required=False)
+    page_no = forms.IntegerField(required=False)
 
 
 

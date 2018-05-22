@@ -52,6 +52,13 @@ def logout(request):
 
 @has_login
 @require_GET
+def user_center(request):
+    global common
+    return common.user_center(request)
+
+
+@has_login
+@require_GET
 def my_holiday_tasks(request):
     global holiday_task
     return holiday_task.my_holiday_tasks(request)
@@ -257,3 +264,4 @@ def cost_task_approve(request, ct_id):
 def cost_task_negative(request, ct_id):
     global cost_task
     return cost_task.cost_task_negative(request, ct_id)
+

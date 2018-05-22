@@ -7,6 +7,8 @@ urlpatterns = [
     url(r'^login/$', views.login, name='login'),
     url(r'^index/$', views.index, name='index'),
     url(r'^logout/$', views.logout, name='logout'),
+    url(r'^user_center/$', views.user_center, name='user_center'),
+
 
     url(r'^holiday/$', views.my_holiday_tasks, name='my_holiday_tasks'),
     url(r'^holiday/add/$', views.add_holiday_task, name='add_holiday_task'),
