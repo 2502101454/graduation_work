@@ -1,16 +1,94 @@
-{% extends "oa_core/base.html" %}
-{% block title %}Log-in{% endblock %}
-{% block content %}
-    <h1>Log-in</h1>
-    <p>Please, use the following form to log-in:</p>
-    <h4>{{ msg }}</h4>
-    <form action="{% url 'oa_core:login' %}" method="post">
-        <ul>
-            {% csrf_token %}
-            {{ login_form.as_ul }}
-            <p><input type="submit" value="Log-in"></p>
-        </ul>
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{% static 'oa_core/images/favicon2.png' %}">
+
+    <title>Login</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'oa_core/bootstrap_dist/css/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'oa_core/css/login.css' %}" rel="stylesheet">
+      <!-- 开发环境版本，包含了用帮助的命令行警告 -->
+
+  </head>
+  <body class="text-center">
+    <form class="form-signin" id="login-form">
+        {% csrf_token %}
+      <img class="mb-4" src="{% static 'oa_core/images/favicon2.png' %}" name="" width="72" height="72">
+      <input type="text" id="username" name="username" class="form-control" placeholder="用户名" required autofocus>
+           <span class="error-message" name="username"></span>
+      <input type="password" name="password" id="password" class="form-control" placeholder="密码" required>
+           <span class="error-message" name="password"></span>
+      <button class="btn btn-lg btn-success btn-block" onclick="SubmitForm()">登录</button>
+      <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
     </form>
-    <br>
-    <a href="{% url 'oa_core:register' %}">注册</a>
-{% endblock %}
+  </body>
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="{% static 'oa_core/js/jquery-3.3.1.min.js' %}"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="{% static 'oa_core/bootstrap_dist/js/bootstrap.min.js'%}"></script>
+
+    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
+    <script src="{% static 'oa_core/js/holder.min.js' %}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{% static 'oa_core/js/ie10-viewport-bug-workaround.js' %}"></script>
+
+    <script type="text/javascript">
+        var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
+        function csrfSafeMethod(method) {
+            // 这些HTTP方法不要求CSRF包含
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        //表单里的button都不是submit了，点击了还有默认行为。。只能取消，然后采用ajax同步(此时页面也就只有ajax可以发送请求，同异步都行)
+        var myform = document.getElementById('login-form');
+        myform.onsubmit = function () {
+            return false
+        }
+
+        //login Ajax logic
+        function SubmitForm(){
+            var input_dict = {};
+            $('input').each(function () {
+                var v = $(this).val();
+                var n = $(this).attr('name');
+                input_dict[n] = v;
+            });
+            $.ajax({
+                async: false,
+                url: '{% url "oa_core:login" %}',
+                type: 'POST',
+                data: input_dict,
+                dataType: 'json',
+                success: function(callback){
+                   if(callback.status){
+                        location.href = '{% url "oa_core:index" %}';
+                   }else{
+                       $('span[name="username"]').text('')
+                       $('span[name="password"]').text('')
+                       $.each(callback.message, function (k,v) {
+                           var str = v[0].message;
+                           $('span[name="' + k + '"]').text(str);
+                       })
+                   }
+                }
+            })
+        }
+    </script>
+</html>

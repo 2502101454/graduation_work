@@ -3,19 +3,22 @@
 ##########
 
 from django.http import HttpResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render
 from django.core.urlresolvers import reverse
 from ..forms import LoginForm
 from ..models import *
-
+import json
 
 class Common(object):
 
     def __int__(self):
         pass
 
+    @csrf_exempt
     def user_login(self, request):
         if request.method == 'POST':
+            result = {'status': False, 'message': None}
             form = LoginForm(request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username'].strip()
@@ -33,20 +36,30 @@ class Common(object):
                     if username.startswith('c'):
                         user = Ceo.objects.get(id=username, password=password)
                         request.session['role'] = 'c'
+                    # 上面没报错那么肯定就找到了
                     if user:
                         # 登录成功，重定向到首页，首页相关用户信息，使用session传递
                         request.session['user'] = user
-                        return HttpResponseRedirect(reverse('oa_core:index'))
-                    else:
-                        # 如果用户输入的username开头都不符合上面的三种
-                        raise Exception('username不符合规范')
+                        result['status'] = True
+                        return HttpResponse(json.dumps(result))
                 except Exception as e:
                     print e
-                    # 登录失败，定制错误消息，用户名或密码不存在，继续转发到登录页面
-                    return render(request, 'oa_core/login.html', {'msg': '用户名或密码不存在', 'login_form': form})
+                    # 登录失败，定制错误消息，用户名或密码不存在
+                    result['status'] = False
+                    result['message'] = {'password': [{'message': '用户名或密码不存在'}]}
+                    return HttpResponse(json.dumps(result))
+            # 错误消息
+            else:
+                #直接打印errors里面是<ul>...xxx内容。
+                                    # 内部json.dumps
+                error_str = form.errors.as_json()
+                print 'login error_str', error_str, '\n', form.errors
+                # 转为python对象，将result 返回给前台
+                result['message'] = json.loads(error_str)
+                return HttpResponse(json.dumps(result))
         else:
-            form = LoginForm()
-        return render(request, 'oa_core/login.html', {'login_form': form})
+            pass
+        return render(request, 'oa_core/login.html')
 
     def go_index(self, request):
         user = request.session.get('user')
@@ -58,6 +71,37 @@ class Common(object):
         data['role'] = role
         return render(request, 'oa_core/index.html', data)
 
+    def register_success(self, request):
+        code = request.session.get('register_user_code')
+        return render(request, 'oa_core/assign_code.html', {'code': code})
+
     def logout(self, request):
         request.session.flush()
         return HttpResponseRedirect(reverse('oa_core:index'))
+
+    def user_center(self, request):
+        user = request.session.get('user')
+        id = user.id
+        user_info = {'id': user.id,
+                     'name': user.name,
+                     'sex': user.sex,
+                     'phone': user.phone,
+                     'email': user.email,
+                     'photo': user.photo,
+                     'register_time': '',
+                     'dept': '',
+                     'job': '',
+                     'upper': ''
+                     }
+        if id.startswith('e'):
+            user_info['dept'] = user.dept.name
+            user_info['register_time'] = user.register_time
+            user_info['job'] = user.job
+            user_info['upper'] = user.dept.manager.id
+        elif id.startswith('m'):
+            user_info['dept'] = user.dept.name
+            user_info['upper'] = user.ceo.id
+        elif id.startswith('c'):
+            user_info['dept'] = user.dept
+
+        return render(request, 'oa_core/user/user_detail.html', context=user_info)

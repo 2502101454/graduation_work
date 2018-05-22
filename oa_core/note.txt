@@ -56,3 +56,19 @@ Django如何初始化表单的值？
         These values are only displayed for unbound forms
 如何初始化一个choices字段？
         首先需要在表单中定义choices类型字段的时候就指定好choices集合，然后initial中指定，具体看HolidayTaskForm的dept字段的默认值指定
+
+If you’d prefer Django not to create a backwards relation, set related_name to '+' or end it with '+'
+举例：如果employee中在dept外键上有related_name='+'，那么无法通过department对象d,d.employee_set.all()是会报错的。
+这是无法使用向后(反向外键)关系。所以无法取得employee的管理器！
+related_query_name: The name to use for the reverse filter name from the target model(含有外键的model)
+related_name用于使用d获取employee的管理器，如果换成related_query_name是用于使用Department过滤得到Department对象,过滤条件是反向的即employee的相关
+总结：related_name用于获取子模型的管理器，related_query_name用于反向过滤从而得到自己的对象
+
+更新报销单情景：
+    先要去数据库中查出，然后回显表单，进行更新提交。
+    想要使用一个url, 但是请求回显表单，url是xxx/update/id
+                    而更新操作的请求是xxx/update/
+    如何让id变得optional?Django文档中给出了解决方案是推荐使用(?:xxx)?,里面的xxx即为你的捕获正则表达式
+    例如：(?:(?P<ct_id>[0-9]+)/)?$
+
+django的{%block} 包在{% if}中是没用的，它总会被加载

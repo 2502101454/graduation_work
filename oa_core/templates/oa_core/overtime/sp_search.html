@@ -1,0 +1,127 @@
+{% extends "../index.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    审批加班申请
+{% endblock title%}
+
+{% block css %}
+    <link href="{% static 'oa_core/kkpager/src/kkpager_blue.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-10 col-md-offset-2">
+                <form class="form-inline" action="{% url 'oa_core:subordinate_overtime_tasks' %}" id="search_form">
+                    {% csrf_token %}
+                    <div class="form-group clearfix">
+                        <label for="create_date">提交日期下限</label>
+                        <input type="text" class="form-control" id="create_date" name="create_date"
+                               value="{{ search_condition.create_date|default_if_none:'' |date:"Y-m-d"}}">
+                    </div>
+
+                    <div class="form-group" style="margin-left: 10px">
+                        <label for="status">状态</label>
+                        <select class="form-control" name="status" id="status">
+                            <option value="">全部</option>
+                            <option value="1"
+                                {% if search_condition.status == 1 %}
+                                    selected
+                                {% endif %}
+                            >提交</option>
+                            <option value="2"
+                                {% if search_condition.status == 2 %}
+                                    selected
+                                {% endif %}
+                            >同意</option>
+                            <option value="3"
+                                {% if search_condition.status == 3 %}
+                                    selected
+                                {% endif %}
+                            >驳回</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 30px">查询</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>id</th>
+                            <th>submit_date_time</th>
+                            <th>detail</th>
+                            <th>operation</th>
+                            <th>current_status</th>
+                        </tr>
+                        {% for o_task in page_obj.object_list %}
+                        <tr>
+                            <td>{{ o_task.id}}</td>
+                            <td>{{ o_task.submit_date_time | date:"Y-m-d h:i:s"}}</td>
+                            <td><a href="{% url 'oa_core:overtime_task_detail' o_task.id%}">详情</a></td>
+                            <td>
+                                {% if o_task.status  == 1 %}
+                                    <a href="{% url 'oa_core:overtime_task_approve' o_task.id %}">同意</a>|
+                                    <a href="{% url 'oa_core:overtime_task_negative' o_task.id %}">驳回</a>
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+                            <td>{{ o_task.status | current_status }}</td>
+                        </tr>
+                        {% empty %}
+                            <li>Sorry, no overtime Task submit to here.</li>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                    <div id="kkpager"></div>
+            </div>
+        </div>
+    </div>
+
+{%endblock content%}
+
+{% block js %}
+    <script src="{% static 'oa_core/layDate-v5.0.9/laydate/laydate.js' %}"></script>
+    <script src="{% static 'oa_core/kkpager/src/kkpager.min.js' %}"></script>
+    <script>
+        //国际版
+        laydate.render({
+          elem: '#create_date'
+          ,lang: 'en'
+        });
+
+        //init kkpager
+        $(function(){
+            var totalPage = {{ page_obj.paginator.num_pages }};
+            var totalRecords = {{ page_obj.paginator.count }};
+            var pageNo = {{ page_obj.number }}
+            //生成分页
+            //有些参数是可选的，比如lang，若不传有默认值
+            kkpager.generPageHtml({
+                pno : pageNo,
+                //总页码
+                total : totalPage,
+                //总数据条数
+                totalRecords : totalRecords,
+                //链接前部
+                hrefFormer : '{% url "oa_core:subordinate_overtime_tasks" %}',
+                //链接尾部
+                hrefLatter : "&create_date={{ search_condition.create_date |default_if_none:'' |date:'Y-m-d'}}"
+                             +"&status={{ search_condition.status |default_if_none:'' }}",
+                getLink : function(n){
+                    return this.hrefFormer +"?page_no="+n + this.hrefLatter;
+                }
+            });
+        });
+    </script>
+{% endblock %}

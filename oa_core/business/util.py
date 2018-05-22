@@ -3,6 +3,8 @@
 ##########
 from ..models import *
 from django.db.models.functions import Length, Upper,Lower
+from datetime import datetime
+import json
 
 class DeanUtil(object):
     def __int__(self):
@@ -50,3 +52,14 @@ class DeanUtil(object):
     def holiday_task_days(self, start, end):
         # 两个datetime对象相减得到的是timedelta对象
         return (end - start).days + 1
+
+    def start_and_end_date(self, start_and_end_date_str):
+        res = start_and_end_date_str.split(' - ')
+        return [datetime.strptime(res[0], '%Y-%m-%d').date(), datetime.strptime(res[1], '%Y-%m-%d').date()]
+
+    def error_body(self, error_json):
+        errors_obj = json.loads(error_json)
+        body = {}
+        for k, v in errors_obj.iteritems():
+            body[k] = v[0]["message"]
+        return body

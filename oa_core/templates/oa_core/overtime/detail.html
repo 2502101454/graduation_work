@@ -1,15 +1,56 @@
-{% extends "../base.html" %}
+{% extends "../index.html" %}
 
 {% block title %}
-    新建请假单
+    加班申请详情
 {% endblock title%}
 
 {% block content %}
-    <form action="{% url 'oa_core:update_overtime_task' %}" method="post">
-        <ul>
-            {% csrf_token %}
-            {{ overtime_task_form.as_ul }}
-            <p><input type="submit" value="update"></p>
-        </ul>
-    </form>
+    <div class="container" style="margin-top: 70px">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-5">
+                <h3>加班申请单内容</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="{% url 'oa_core:update_overtime_task' %}" method="post" id="update_form">
+                    <div class="form-group">
+                        <label for="overtime_date">加班日期</label>
+                        <input type="text" class="form-control" id="overtime_date" name="overtime_date"
+                               value="{{ overtime_date | date:'Y-m-d'}}" readonly>
+                        <span class="error-message" name="overtime_date"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="start_hour">开始时间</label>
+                        <input type="number" class="form-control" id="start_hour" name="start_hour" max="23" min="0"
+                                value="{{ start_hour }}" readonly>
+                        <span class="error-message" name="start_hour"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="end_hour">结束时间</label>
+                        <input type="number" class="form-control" id="end_hour" name="end_hour" max="23" min="0"
+                                value="{{ end_hour }}" readonly>
+                        <span class="error-message" name="end_hour"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">备注</label>
+                        <textarea class="form-control" rows="3" name="comment" id="comment" readonly>{{ comment }}</textarea>
+                        <span class="error-message" name="comment"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept_name">部门名称</label>
+                        <input class="form-control" name="dept_name" id="dept_name" value="{{dept_name}}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsor">申请人</label>
+                        <input class="form-control" name="sponsor" id="sponsor" value="{{ sponsor }}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="straight_upper">可审批人</label>
+                        <input class="form-control" name="straight_upper" id="straight_upper" value="{{ straight_upper }}" readonly/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {%endblock content%}

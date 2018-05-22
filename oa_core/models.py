@@ -12,6 +12,7 @@ class Ceo(models.Model):
     email = models.CharField(max_length=30, null=True)
     photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
     password = models.CharField(max_length=20)
+    dept = models.CharField(max_length=20, default='CEO')
 
     def __unicode__(self):
         return self.name
@@ -70,14 +71,14 @@ class HolidayTask(models.Model):
     sponsor = models.CharField(max_length=10, null=True)
     # 逻辑外键，发起人的直接上级
     straight_upper = models.CharField(max_length=10, null=True)
-    create_date = models.DateField(null=True)
-    submit_date = models.DateField(null=True)
-    approve_date = models.DateField(null=True)
+    create_date_time = models.DateTimeField(null=True)
+    submit_date_time = models.DateTimeField(null=True)
+    approve_date_time = models.DateTimeField(null=True)
     # 0新建 1提交 2同意 3驳回
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 
 
 class OvertimeTask(models.Model):
@@ -92,14 +93,14 @@ class OvertimeTask(models.Model):
     sponsor = models.CharField(max_length=10, null=True)
     # 逻辑外键，发起人的直接上级
     straight_upper = models.CharField(max_length=10, null=True)
-    create_date = models.DateField(null=True)
-    submit_date = models.DateField(null=True)
-    approve_date = models.DateField(null=True)
+    create_date_time = models.DateTimeField(null=True)
+    submit_date_time = models.DateTimeField(null=True)
+    approve_date_time = models.DateTimeField(null=True)
     # 0新建 1提交 2同意 3驳回
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 
 
 class CostTask(models.Model):
@@ -113,12 +114,12 @@ class CostTask(models.Model):
     sponsor = models.CharField(max_length=10, null=True)
     # 逻辑外键，发起人的直接上级
     straight_upper = models.CharField(max_length=10, null=True)
-    create_date = models.DateField(null=True)
-    submit_date = models.DateField(null=True)
-    approve_date = models.DateField(null=True)
+    create_date_time = models.DateTimeField(null=True)
+    submit_date_time = models.DateTimeField(null=True)
+    approve_date_time = models.DateTimeField(null=True)
     # 0新建 1提交 2同意 3驳回
     status = models.IntegerField(null=True)
 
     def __unicode__(self):
-        return self.id
+        return str(self.id)
 

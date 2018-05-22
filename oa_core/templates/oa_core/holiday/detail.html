@@ -1,15 +1,72 @@
-{% extends "../base.html" %}
+{% extends "../index.html" %}
 
 {% block title %}
-    新建请假单
+    请假单详情
 {% endblock title%}
 
 {% block content %}
-    <form action="{% url 'oa_core:update_holiday_task' %}" method="post">
-        <ul>
-            {% csrf_token %}
-            {{ holiday_task_form.as_ul }}
-            <p><input type="submit" value="update"></p>
-        </ul>
-    </form>
+    <div class="row" style="margin-top: 70px">
+            <div class="col-md-3 col-md-offset-5">
+                <h3>请假单内容</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="{% url 'oa_core:update_holiday_task' %}" method="post" id="update_form">
+                    <div class="form-group">
+                        <label for="ht_type">类型</label>
+                        <select class="form-control" name="ht_type" disabled>
+                            <option value="0"
+                                {% if ht_type == 0 %}
+                                    selected
+                                {% endif %}
+                            >事假</option>
+                            <option value="1"
+                                {% if ht_type == 1 %}
+                                        selected
+                                {% endif %}
+                            >病假</option>
+                            <option value="2"
+                                {% if ht_type == 2 %}
+                                    selected
+                                {% endif %}
+                            >婚假</option>
+                            <option value="3"
+                                {% if ht_type == 3 %}
+                                    selected
+                                {% endif %}
+                            >产假</option>
+                            <option value="4"
+                                {% if ht_type == 4 %}
+                                    selected
+                                {% endif %}
+                            >年假</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="date_range">日期范围</label>
+                        <input type="text" class="form-control" id="date_range" name="date_range" value="{{ date_range }}" readonly>
+                       <span class="error-message" name="date_range"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="comment">备注</label>
+                        <textarea class="form-control" rows="3" name="comment" id="comment" readonly>{{ comment }}</textarea>
+                        <span class="error-message" name="comment"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="dept_name">部门名称</label>
+                        <input class="form-control" name="dept_name" id="dept_name" readonly value="{{ dept_name }}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="sponsor">申请人</label>
+                        <input class="form-control" name="sponsor" id="sponsor" value="{{ sponsor }}" readonly/>
+                    </div>
+                    <div class="form-group">
+                        <label for="straight_upper">可审批人</label>
+                        <input class="form-control" name="straight_upper" id="straight_upper" value="{{ straight_upper }}" readonly/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 {%endblock content%}
