@@ -26,7 +26,7 @@ class Manager(models.Model):
     email = models.CharField(max_length=30,null=True)
     photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
     password = models.CharField(max_length=20)
-    ceo = models.OneToOneField(Ceo, null=True)
+    ceo = models.ForeignKey(Ceo, null=True)
     dept = models.OneToOneField('Department', null=True, related_name='dept_of')
 
     def __unicode__(self):
