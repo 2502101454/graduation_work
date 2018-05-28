@@ -63,3 +63,4 @@ class DeanUtil(object):
         for k, v in errors_obj.iteritems():
             body[k] = v[0]["message"]
         return body
+

@@ -46,3 +46,4 @@ urlpatterns = [
     url(r'^cost/approve/(?P<ct_id>[0-9]+)/$', views.cost_task_approve, name='cost_task_approve'),
     url(r'^cost/negative/(?P<ct_id>[0-9]+)/$', views.cost_task_negative, name='cost_task_negative'),
     ]
+

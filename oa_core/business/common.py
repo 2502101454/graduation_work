@@ -105,3 +105,4 @@ class Common(object):
             user_info['dept'] = user.dept
 
         return render(request, 'oa_core/user/user_detail.html', context=user_info)
+

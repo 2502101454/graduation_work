@@ -265,3 +265,4 @@ def cost_task_negative(request, ct_id):
     global cost_task
     return cost_task.cost_task_negative(request, ct_id)
 
+
