@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'uftbnh!z-(tcpudkd5zz&7dp**dvvq!8e06anq$2)#&!b2-n^z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['*']
 
@@ -124,6 +124,7 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/Users/zeng.wang/my_oa_demo_static_root'
 MEDIA_ROOT = '/Users/zeng.wang/my_oa_pics'
 
 CACHES = {
