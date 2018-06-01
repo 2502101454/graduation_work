@@ -124,8 +124,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = '/Users/zeng.wang/my_oa_demo_static_root'
-MEDIA_ROOT = '/Users/zeng.wang/my_oa_pics'
+STATIC_ROOT = '/home/ubuntu/my_oa_demo_static_root'
+MEDIA_ROOT = '/home/ubuntu/my_oa_pics'
 
 CACHES = {
     'default': {
