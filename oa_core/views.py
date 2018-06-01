@@ -58,6 +58,12 @@ def user_center(request):
 
 
 @has_login
+def user_info_update(request):
+    global common
+    return common.user_info_update(request)
+
+
+@has_login
 @require_GET
 def my_holiday_tasks(request):
     global holiday_task

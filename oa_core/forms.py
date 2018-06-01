@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from django import forms
-from oa_core.business.util import DeanUtil
+from business.util import DeanUtil
 from django.core.validators import *
+from models import *
+from django.db.models import Q
 # 对于char字段，后台的数据校验将会进行去首尾空格(默认命名参数strip=True)然后进行min_length之类的校验
 # *只要校验通过，那么就会将前台输入的值原封不动的作为cleaned data，不会去空格之类！
-
 
 class EmRegisterForm(forms.Form):
     email = forms.EmailField(error_messages={'invalid': '邮箱不合法'})
@@ -20,7 +21,14 @@ class EmRegisterForm(forms.Form):
                                          'min_length': '密码最少输入3位',
                                          'max_length': '密码最多输入10位'
                                      })
-    dept = forms.ChoiceField(choices=DeanUtil.dept_choices())
+    # 得到部门的tuple(id, name)
+    def dept_choices(self):
+        depts = Department.objects.all().order_by('id')
+        res = []
+        for dept in depts:
+            res.append((dept.id, dept.name))
+        return res
+    dept = forms.ChoiceField(choices=dept_choices)
 
     # XXX。Three types of cleaning methods。These are executed when you call the is_valid() method on a form。
     # 调用is_valid()时候，文档描述的所有过程开始执行。Accessing the errors attribute or calling full_clean() directly 也可以。
@@ -116,7 +124,43 @@ class SearchForm(forms.Form):
     page_no = forms.IntegerField(required=False)
 
 
+class UserUForm(forms.Form):
+    user_id = forms.CharField(error_messages={'required': '用户id不能为空'})
+    username = forms.CharField(error_messages={'required': '用户姓名不能为空'})
+    email = forms.EmailField(error_messages={'invalid': '邮箱不合法', 'required': '邮箱不能为空'})
+    sex = forms.CharField(required=False)
+    phone = forms.CharField(required=False, validators=[RegexValidator(regex=r'^1[3,4,5,7,8]\d{9}')],
+                            error_messages={'invalid': '手机号码不合法'})
+    photo = forms.ImageField(required=False, error_messages={'invalid_image': '请选择图片文件'})
 
+    def clean_email(self):
+        v_email = self.cleaned_data['email']
+        v_id = self.cleaned_data['user_id']
+        print 'v_id in clean_email method:', v_id
+        is_exist = True
+        if v_id.startswith('e'):
+            is_exist = Employee.objects.filter(~Q(id=v_id), Q(email=v_email)).exists()
+        if v_id.startswith('m'):
+            is_exist = Manager.objects.filter(~Q(id=v_id), Q(email=v_email)).exists()
+        if v_id.startswith('c'):
+            is_exist = Ceo.objects.filter(~Q(id=v_id), Q(email=v_email)).exists()
+        if is_exist:
+            self.add_error('email', '该邮箱已被注册')
+        return v_email
+
+    def clean_phone(self):
+        v_phone = self.cleaned_data['phone']
+        v_id = self.cleaned_data['user_id']
+        is_exist = True
+        if v_id.startswith('e'):
+            is_exist = Employee.objects.filter(~Q(id=v_id), Q(phone=v_phone)).exists()
+        if v_id.startswith('m'):
+            is_exist = Manager.objects.filter(~Q(id=v_id), Q(phone=v_phone)).exists()
+        if v_id.startswith('c'):
+            is_exist = Ceo.objects.filter(~Q(id=v_id), Q(phone=v_phone)).exists()
+        if is_exist:
+            self.add_error('phone', '该手机号已被注册')
+        return v_phone
 
 
 
