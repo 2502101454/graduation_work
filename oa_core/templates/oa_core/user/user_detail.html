@@ -15,7 +15,13 @@
         </div>
         <div class="row">
             <div class="col-md-2 col-md-offset-2">
-                <img src="{% static 'oa_core/images/squirrel2.jpg' %}" alt="暂无" class="img-rounded" width="120" height="120">
+                <img src="
+                        {% if photo  %}
+                            {{ photo.url}}
+                        {% else %}
+                            {% static 'oa_core/images/default_mug_shot.png' %}
+                        {% endif %}"
+                     alt="暂无" class="img-rounded" width="120" height="120">
             </div>
         </div>
         <div class="row" style="margin-top: 10px">
@@ -50,7 +56,7 @@
         </div>
         <div class="row" style="margin-top: 30px">
             <div class="col-md-2 col-md-offset-4">
-                <a href="#" class="btn btn-info">编辑</a>
+                <a href="{% url "oa_core:user_info_update" %}" class="btn btn-info">编辑</a>
             </div>
             <div class="col-md-2">
                 <a href="#" class="btn btn-warning">修改密码</a>

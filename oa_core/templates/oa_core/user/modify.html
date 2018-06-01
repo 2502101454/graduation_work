@@ -1,0 +1,112 @@
+{% extends "../index.html" %}
+{% load static %}
+{% block title %}
+    修改用户信息
+{% endblock title%}
+{% block css %}
+    <style>
+        .error-message
+        {
+            color: red;
+        }
+    </style>
+{% endblock css %}
+
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-md-offset-5">
+                <h3>修改用户信息</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <form action="{% url 'oa_core:update_overtime_task' %}" method="post" id="update_form">
+                    {% csrf_token %}
+                    <input type="hidden" name="user_id" id="user_id" value="{{ request.session.user.id }}">
+                    <div class="form-group">
+                        <label for="username">姓名</label>
+                        <input type="text" class="form-control" id="username" name="username"
+                               value="{{ request.session.user.name |default_if_none:''}}">
+                        <span class="error-message" name="username"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="sex">姓别&nbsp;&nbsp;&nbsp;</label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="sex" value="1"
+                                   {% if request.session.user.sex == 1 %}
+                                        checked="true"
+                                   {% endif %}
+                            /> 男
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" name="sex" id="sex" value="0"
+                                    {% if request.session.user.sex == 0 %}
+                                        checked="true"
+                                    {% endif %}
+                            /> 女
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">邮箱</label>
+                        <input type="email" class="form-control" id="email" name="email"
+                                value="{{ request.session.user.email |default_if_none:''}}">
+                        <span class="error-message" name="email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">电话</label>
+                        <input type="text" class="form-control" id="phone" name="phone"
+                                value="{{ request.session.user.phone |default_if_none:''}}">
+                        <span class="error-message" name="phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">头像文件</label>
+                        <input type="file" class="form-control" name="photo" id="photo"/>
+                        <span class="error-message" name="photo"></span>
+                    </div>
+                    <button type="submit" class="btn btn-success" onclick="SubmitForm()">更新</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{%endblock content%}
+
+{% block js %}
+    <script>
+
+        //表单里的button都不是submit了，点击了还有默认行为。。只能取消，然后采用ajax同步(此时页面也就只有ajax可以发送请求，同异步都行)
+        var myform = document.getElementById('update_form');
+        myform.onsubmit = function () {
+            return false
+        };
+
+        //login Ajax logic
+        function SubmitForm(){
+            var form = new FormData(document.getElementById("update_form"));
+            {#alert(form)#}
+            $.ajax({
+                async: false,
+                url: '{% url 'oa_core:user_info_update' %}',
+                type: 'POST',
+                data: form,
+                processData:false,
+                contentType:false,
+                dataType: 'json',
+                success: function(callback){
+                   if(callback.status){
+                        location.href = '{% url "oa_core:user_center" %}';
+                   }else{
+                       $('span[name="username"]').text('');
+                       $('span[name="email"]').text('');
+                       $('span[name="phone"]').text('');
+                       $('span[name="photo"]').text('');
+                       $.each(callback.message, function (k,v) {
+                           $('span[name="' + k + '"]').text(v);
+                       })
+                   }
+                }
+            })
+        }
+    </script>
+{% endblock js %}
