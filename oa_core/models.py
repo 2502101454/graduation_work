@@ -17,7 +17,7 @@ class Ceo(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
     #0女 1男
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=30, null=True)
     photo = models.ImageField(upload_to=user_directory_path, null=True)
@@ -31,7 +31,7 @@ class Ceo(models.Model):
 class Manager(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     phone = models.CharField(max_length=20,null=True)
     email = models.CharField(max_length=30,null=True)
     photo = models.ImageField(upload_to=user_directory_path, null=True)
@@ -55,7 +55,7 @@ class Department(models.Model):
 class Employee(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     job = models.CharField(max_length=20, null=True)
     phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=30, null=True)
