@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 #工具方法类
 ##########
-from ..models import *
 from django.db.models.functions import Length, Upper,Lower
 from datetime import datetime, timedelta
 import json
@@ -14,13 +13,13 @@ class DeanUtil(object):
 
     # 计算该系统当中的下一位用户id
     # employee: e_00001 | manager: m_0001 | ceo: c_001
-    def next_user_id(self, prefix, digital_bit):
+    def next_user_id(self, prefix, digital_bit, model_class):
         suffix = ''
         if prefix == 'e':
-            if Employee.objects.count() == 0:
+            if model_class.objects.count() == 0:
                 suffix = ('{:0>'+str(digital_bit)+'d}').format(1)
             else:
-                emp = Employee.objects.order_by(Lower('id').desc())[0]
+                emp = model_class.objects.order_by(Lower('id').desc())[0]
                 suffix = self.__next_suffix(emp.id, digital_bit)
 
         if prefix == 'm':

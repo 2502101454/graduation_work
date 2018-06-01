@@ -21,14 +21,8 @@ class EmRegisterForm(forms.Form):
                                          'min_length': '密码最少输入3位',
                                          'max_length': '密码最多输入10位'
                                      })
-    # 得到部门的tuple(id, name)
-    def dept_choices(self):
-        depts = Department.objects.all().order_by('id')
-        res = []
-        for dept in depts:
-            res.append((dept.id, dept.name))
-        return res
-    dept = forms.ChoiceField(choices=dept_choices)
+
+    dept = forms.IntegerField()
 
     # XXX。Three types of cleaning methods。These are executed when you call the is_valid() method on a form。
     # 调用is_valid()时候，文档描述的所有过程开始执行。Accessing the errors attribute or calling full_clean() directly 也可以。
