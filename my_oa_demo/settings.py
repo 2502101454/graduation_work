@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = 'uftbnh!z-(tcpudkd5zz&7dp**dvvq!8e06anq$2)#&!b2-n^z'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -126,7 +126,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATIC_ROOT = '/home/ubuntu/my_oa_demo_static_root'
 MEDIA_ROOT = '/home/ubuntu/my_oa_pics'
-
+MEDIA_URL = '/media/'
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
