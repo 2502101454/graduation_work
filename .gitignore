@@ -9,3 +9,5 @@ build
 # My configurations:
 venv
 venv1
+my_oa_demo-master.pid
+*.log

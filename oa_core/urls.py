@@ -8,6 +8,15 @@ urlpatterns = [
     url(r'^index/$', views.index, name='index'),
     url(r'^logout/$', views.logout, name='logout'),
     url(r'^user_center/$', views.user_center, name='user_center'),
+    url(r'^user_info_update/$', views.user_info_update, name='user_info_update'),
+    url(r'^user_password_update/$', views.user_password_update, name='user_password_update'),
+    url(r'^all_employees/$', views.all_employees, name='all_employees'),
+    url(r'^all_managers/$', views.all_managers, name='all_managers'),
+    url(r'^all_ceo/$', views.all_ceo, name='all_ceo'),
+    url(r'^user_detail/(?P<user_id>[emc]_[0-9]+)/$', views.user_detail, name='user_detail'),
+    url(r'^company_news/$', views.company_news, name='company_news'),
+    url(r'^show_news/(?P<news_id>[0-9]+)$', views.show_news, name='show_news'),
+
 
 
     url(r'^holiday/$', views.my_holiday_tasks, name='my_holiday_tasks'),

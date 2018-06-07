@@ -54,7 +54,61 @@ def logout(request):
 @require_GET
 def user_center(request):
     global common
-    return common.user_center(request)
+    user = request.session.get('user')
+    return common.user_center(request, user)
+
+
+@has_login
+def user_info_update(request):
+    global common
+    return common.user_info_update(request)
+
+
+@has_login
+def user_detail(request, user_id):
+    global common
+    return common.user_detail(request, user_id)
+
+
+@has_login
+def user_password_update(request):
+    global common
+    return common.user_password_update(request)
+
+
+@has_login
+@require_GET
+def all_employees(request):
+    global common
+    return common.all_employees(request)
+
+
+@has_login
+@require_GET
+def all_managers(request):
+    global common
+    return common.all_managers(request)
+
+
+@has_login
+@require_GET
+def all_ceo(request):
+    global common
+    return common.all_ceo(request)
+
+
+@has_login
+@require_GET
+def company_news(request):
+    global common
+    return common.company_news(request)
+
+
+@has_login
+@require_GET
+def show_news(request, news_id):
+    global common
+    return common.show_news(request, news_id)
 
 
 @has_login

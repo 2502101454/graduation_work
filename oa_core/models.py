@@ -2,15 +2,26 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from business.util import DeanUtil
+from ckeditor_uploader.fields import RichTextUploadingField
+
+def user_directory_path(instance, filename):
+    #file_name可以获取文件本来的名称，这里进行文件名的md5化,现在文件将会存储在Mida_root/uploads/ymd/xxx
+    print 'user_directory_path method filename:', filename
+    file_suffix = filename.split('.')[-1]
+    md5_filename = DeanUtil.generate_md5(filename)
+    print 'then md5_filename:', md5_filename
+    date_str = DeanUtil.now_date_str()
+    return ('uploads/' + date_str + '/{0}.' + file_suffix).format(md5_filename)
 
 class Ceo(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
     #0女 1男
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=30, null=True)
-    photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
+    photo = models.ImageField(upload_to=user_directory_path, null=True)
     password = models.CharField(max_length=20)
     dept = models.CharField(max_length=20, default='CEO')
 
@@ -21,10 +32,10 @@ class Ceo(models.Model):
 class Manager(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     phone = models.CharField(max_length=20,null=True)
     email = models.CharField(max_length=30,null=True)
-    photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
+    photo = models.ImageField(upload_to=user_directory_path, null=True)
     password = models.CharField(max_length=20)
     ceo = models.ForeignKey(Ceo, null=True)
     dept = models.OneToOneField('Department', null=True, related_name='dept_of')
@@ -45,11 +56,11 @@ class Department(models.Model):
 class Employee(models.Model):
     id = models.CharField(primary_key=True, max_length=10)
     name = models.CharField(max_length=20)
-    sex = models.IntegerField(null=True)
+    sex = models.IntegerField(null=True, default=1)
     job = models.CharField(max_length=20, null=True)
     phone = models.CharField(max_length=20, null=True)
     email = models.CharField(max_length=30, null=True)
-    photo = models.ImageField(upload_to='uploads/%Y/%m/%d/', null=True)
+    photo = models.ImageField(upload_to=user_directory_path, null=True)
     password = models.CharField(max_length=20)
     register_time = models.DateTimeField()
     dept = models.ForeignKey(Department, null=True)
@@ -124,3 +135,13 @@ class CostTask(models.Model):
         return str(self.id)
 
 
+class News(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+    content = RichTextUploadingField()
+    # 逻辑外键，创建人
+    sponsor = models.CharField(max_length=10)
+    create_date = models.DateField()
+
+    def __unicode__(self):
+        return str(self.id)

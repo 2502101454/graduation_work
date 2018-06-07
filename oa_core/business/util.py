@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 #工具方法类
 ##########
-from ..models import *
 from django.db.models.functions import Length, Upper,Lower
-from datetime import datetime
+from datetime import datetime, timedelta
 import json
+import hashlib
+
 
 class DeanUtil(object):
     def __int__(self):
@@ -12,13 +13,13 @@ class DeanUtil(object):
 
     # 计算该系统当中的下一位用户id
     # employee: e_00001 | manager: m_0001 | ceo: c_001
-    def next_user_id(self, prefix, digital_bit):
+    def next_user_id(self, prefix, digital_bit, model_class):
         suffix = ''
         if prefix == 'e':
-            if Employee.objects.count() == 0:
+            if model_class.objects.count() == 0:
                 suffix = ('{:0>'+str(digital_bit)+'d}').format(1)
             else:
-                emp = Employee.objects.order_by(Lower('id').desc())[0]
+                emp = model_class.objects.order_by(Lower('id').desc())[0]
                 suffix = self.__next_suffix(emp.id, digital_bit)
 
         if prefix == 'm':
@@ -39,14 +40,7 @@ class DeanUtil(object):
             return new_suffix
         return None
 
-    # 得到部门的tuple(id, name)
-    @classmethod
-    def dept_choices(cls):
-        depts = Department.objects.all().order_by('id')
-        res = []
-        for dept in depts:
-            res.append((dept.id, dept.name))
-        return res
+
 
     # 计算请假的天数，请假日期范围是[start,end]闭区间
     def holiday_task_days(self, start, end):
@@ -64,3 +58,18 @@ class DeanUtil(object):
             body[k] = v[0]["message"]
         return body
 
+    @staticmethod
+    def generate_md5(some_str):
+        utc_dt = datetime.utcnow() + timedelta(hours=5.5)
+        current_time = utc_dt.strftime("%Y-%m-%d %H:%M:%S")
+        if isinstance(some_str, basestring):
+            # 将传过来的字符串加上当前时间
+            some_str = some_str + current_time
+            str_md5 = hashlib.md5(some_str).hexdigest()
+            return str_md5
+        else:
+            return ''
+
+    @staticmethod
+    def now_date_str():
+        return datetime.now().strftime("%Y%m%d")

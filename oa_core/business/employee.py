@@ -36,7 +36,7 @@ class Employee(object):
                 print 'password,', password
                 print 'password_agin,', password_agin
                 print 'dept_id,', dept_id
-                e_id = util.next_user_id(prefix='e', digital_bit=5)
+                e_id = util.next_user_id(prefix='e', digital_bit=5, model_class=model_Employee)
                 print 'id,', e_id
                 dept = None
                 try:

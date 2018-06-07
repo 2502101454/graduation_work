@@ -1,0 +1,456 @@
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 12:20:55 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 989)
+spawned uWSGI worker 1 (pid: 990, cores: 1)
+-- unavailable modifier requested: 0 --
+-- unavailable modifier requested: 0 --
+-- unavailable modifier requested: 0 --
+-- unavailable modifier requested: 0 --
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 12:42:44 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 1025)
+spawned uWSGI worker 1 (pid: 1026, cores: 1)
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 12:43:03 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+probably another instance of uWSGI is running on the same address (127.0.0.1:9090).
+bind(): Address already in use [core/socket.c line 769]
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 13:00:42 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 1066)
+spawned uWSGI worker 1 (pid: 1067, cores: 1)
+...brutally killing workers...
+worker 1 buried after 1 seconds
+binary reloading uWSGI...
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo
+closing all non-uwsgi socket fds > 2 (max_fd = 10240)...
+found fd 3 mapped to socket 0 (127.0.0.1:9090)
+running /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+[uWSGI] getting INI configuration from my_oa_demo_uwsgi.ini
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 13:08:35 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 inherited INET address 127.0.0.1:9090 fd 3
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+uWSGI running as root, you can use --uid/--gid/--chroot options
+*** WARNING: you are running uWSGI as root !!! (use the --uid flag) *** 
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+gracefully (RE)spawned uWSGI master process (pid: 1066)
+spawned uWSGI worker 1 (pid: 1126, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 13:39:58 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+Python version: 2.7.10 (default, Oct  6 2017, 22:29:07)  [GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.31)]
+Set PythonHome to /Users/zeng.wang/PycharmProjects/my_oa_demo/venv1
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x7f8b11f00610
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x7f8b11f00610 pid: 1223 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1223)
+spawned uWSGI worker 1 (pid: 1224, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: pidfile removed.
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 13:54:12 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+*** no app loaded. going in full dynamic mode ***
+*** uWSGI is running in multiple interpreter mode ***
+!!!!!!!!!!!!!! WARNING !!!!!!!!!!!!!!
+no request plugin is loaded, you will not be able to manage requests.
+you may need to install the package for your language of choice, or simply load it with --plugin.
+!!!!!!!!!!! END OF WARNING !!!!!!!!!!
+spawned uWSGI master process (pid: 1259)
+spawned uWSGI worker 1 (pid: 1260, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: pidfile removed.
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 14:02:33 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+Python version: 2.7.10 (default, Oct  6 2017, 22:29:07)  [GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.31)]
+Set PythonHome to /Users/zeng.wang/PycharmProjects/my_oa_demo/venv1
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x7fca2bc09a20
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x7fca2bc09a20 pid: 1285 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1285)
+spawned uWSGI worker 1 (pid: 1286, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: pidfile removed.
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 14:08:47 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+Python version: 2.7.10 (default, Oct  6 2017, 22:29:07)  [GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.31)]
+Set PythonHome to /Users/zeng.wang/PycharmProjects/my_oa_demo/venv1
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x7f8bd0004c00
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x7f8bd0004c00 pid: 1301 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1301)
+spawned uWSGI worker 1 (pid: 1302, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: pidfile removed.
+*** Starting uWSGI 2.0.17 (64bit) on [Fri May 25 15:41:39 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+Python version: 2.7.10 (default, Oct  6 2017, 22:29:07)  [GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.31)]
+Set PythonHome to /Users/zeng.wang/PycharmProjects/my_oa_demo/venv1
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x7f8b9d500da0
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 1 seconds on interpreter 0x7f8b9d500da0 pid: 1560 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1560)
+spawned uWSGI worker 1 (pid: 1561, cores: 1)
+SIGINT/SIGQUIT received...killing workers...
+worker 1 buried after 1 seconds
+goodbye to uWSGI.
+VACUUM: pidfile removed.
+*** Starting uWSGI 2.0.17 (64bit) on [Mon May 28 12:09:55 2018] ***
+compiled with version: 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.39.2) on 27 February 2018 08:02:27
+os: Darwin-17.5.0 Darwin Kernel Version 17.5.0: Fri Apr 13 19:32:32 PDT 2018; root:xnu-4570.51.2~1/RELEASE_X86_64
+nodename: zenjoydeMacBook-Pro-2.local
+machine: x86_64
+clock source: unix
+pcre jit disabled
+detected number of CPU cores: 8
+current working directory: /Users/zeng.wang/PycharmProjects/my_oa_demo
+writing pidfile to /Users/zeng.wang/PycharmProjects/my_oa_demo/my_oa_demo-master.pid
+detected binary path: /usr/local/Cellar/uwsgi/2.0.17/bin/uwsgi
+chdir() to /Users/zeng.wang/PycharmProjects/my_oa_demo/
+your processes number limit is 1418
+your memory page size is 4096 bytes
+detected max file descriptor number: 10240
+lock engine: OSX spinlocks
+thunder lock: disabled (you can enable it with --thunder-lock)
+uwsgi socket 0 bound to TCP address 127.0.0.1:9090 fd 3
+Python version: 2.7.10 (default, Oct  6 2017, 22:29:07)  [GCC 4.2.1 Compatible Apple LLVM 9.0.0 (clang-900.0.31)]
+Set PythonHome to /Users/zeng.wang/PycharmProjects/my_oa_demo/venv1
+*** Python threads support is disabled. You can enable it with --enable-threads ***
+Python main interpreter initialized at 0x7fe78a4099c0
+your server socket listen backlog is limited to 100 connections
+your mercy for graceful operations on workers is 60 seconds
+mapped 203152 bytes (198 KB) for 1 cores
+*** Operational MODE: single process ***
+WSGI app 0 (mountpoint='') ready in 0 seconds on interpreter 0x7fe78a4099c0 pid: 1079 (default app)
+*** uWSGI is running in multiple interpreter mode ***
+spawned uWSGI master process (pid: 1079)
+spawned uWSGI worker 1 (pid: 1080, cores: 1)
+uwsgi_proto_uwsgi_parser(): Resource temporarily unavailable [proto/uwsgi.c line 40]
+[pid: 1080|app: 0|req: 1/1] 127.0.0.1 () {42 vars in 807 bytes} [Mon May 28 12:12:42 2018] GET /oa_core/index => generated 0 bytes in 64 msecs (HTTP/1.1 301) 3 headers in 120 bytes (1 switches on core 0)
+user in session, None
+user role in session, None
+[pid: 1080|app: 0|req: 2/2] 127.0.0.1 () {42 vars in 809 bytes} [Mon May 28 12:12:42 2018] GET /oa_core/index/ => generated 7289 bytes in 81 msecs (HTTP/1.1 200) 4 headers in 124 bytes (1 switches on core 0)
+[pid: 1080|app: 0|req: 3/3] 127.0.0.1 () {44 vars in 856 bytes} [Mon May 28 12:14:37 2018] GET /oa_core/login/ => generated 3974 bytes in 5 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
+username, e_00001
+password, 123456
+[pid: 1080|app: 0|req: 4/4] 127.0.0.1 () {52 vars in 1083 bytes} [Mon May 28 12:14:43 2018] POST /oa_core/login/ => generated 33 bytes in 10 msecs (HTTP/1.1 200) 5 headers in 253 bytes (1 switches on core 0)
+user in session, wze_00001
+user role in session, e
+[pid: 1080|app: 0|req: 5/5] 127.0.0.1 () {44 vars in 900 bytes} [Mon May 28 12:14:43 2018] GET /oa_core/index/ => generated 7530 bytes in 5 msecs (HTTP/1.1 200) 4 headers in 124 bytes (2 switches on core 0)
+type_choice None
+status None
+./oa_core/business/holiday_task.py:49: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <QuerySet [<HolidayTask: 1>, <HolidayTask: 2>, <HolidayTask: 4>, <HolidayTask: 7>, <HolidayTask: 8>, <HolidayTask: 9>, <HolidayTask: 10>, <HolidayTask: 11>]>
+  paginator = Paginator(my_own_htask, 5)
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<HolidayTask: 1>, <HolidayTask: 2>, <HolidayTask: 4>, <HolidayTask: 7>, <HolidayTask: 8>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  8
+[pid: 1080|app: 0|req: 6/6] 127.0.0.1 () {44 vars in 904 bytes} [Mon May 28 12:14:48 2018] GET /oa_core/holiday/ => generated 11185 bytes in 39 msecs (HTTP/1.1 200) 5 headers in 279 bytes (1 switches on core 0)
+status None
+./oa_core/business/overtime_task.py:44: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <QuerySet [<OvertimeTask: 1>, <OvertimeTask: 2>, <OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>, <OvertimeTask: 7>, <OvertimeTask: 8>, <OvertimeTask: 9>, <OvertimeTask: 10>]>
+  paginator = Paginator(my_own_otask, 5)
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<OvertimeTask: 1>, <OvertimeTask: 2>, <OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  9
+[pid: 1080|app: 0|req: 7/7] 127.0.0.1 () {44 vars in 906 bytes} [Mon May 28 12:14:50 2018] GET /oa_core/overtime/ => generated 9616 bytes in 20 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
+[pid: 1080|app: 0|req: 8/8] 127.0.0.1 () {42 vars in 835 bytes} [Mon May 28 12:15:02 2018] GET /admin => generated 0 bytes in 0 msecs (HTTP/1.1 301) 3 headers in 112 bytes (2 switches on core 0)
+[pid: 1080|app: 0|req: 9/9] 127.0.0.1 () {42 vars in 837 bytes} [Mon May 28 12:15:02 2018] GET /admin/ => generated 0 bytes in 19 msecs (HTTP/1.1 302) 7 headers in 265 bytes (1 switches on core 0)
+[pid: 1080|app: 0|req: 10/10] 127.0.0.1 () {42 vars in 874 bytes} [Mon May 28 12:15:02 2018] GET /admin/login/?next=/admin/ => generated 1654 bytes in 16 msecs (HTTP/1.1 200) 7 headers in 381 bytes (2 switches on core 0)
+[pid: 1080|app: 0|req: 11/11] 127.0.0.1 () {42 vars in 824 bytes} [Mon May 28 12:15:02 2018] GET /favicon.ico => generated 85 bytes in 1 msecs (HTTP/1.1 404) 3 headers in 100 bytes (2 switches on core 0)
+type_choice None
+status None
+./oa_core/business/cost_task.py:48: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <QuerySet [<CostTask: 1>, <CostTask: 2>, <CostTask: 4>, <CostTask: 5>, <CostTask: 6>, <CostTask: 7>, <CostTask: 8>, <CostTask: 9>, <CostTask: 10>, <CostTask: 11>]>
+  paginator = Paginator(my_own_ctask, 5)
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<CostTask: 1>, <CostTask: 2>, <CostTask: 4>, <CostTask: 5>, <CostTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  10
+[pid: 1080|app: 0|req: 12/12] 127.0.0.1 () {44 vars in 898 bytes} [Mon May 28 12:15:08 2018] GET /oa_core/cost/ => generated 10635 bytes in 18 msecs (HTTP/1.1 200) 5 headers in 279 bytes (2 switches on core 0)
+status None
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<OvertimeTask: 1>, <OvertimeTask: 2>, <OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  9
+[pid: 1080|app: 0|req: 13/13] 127.0.0.1 () {44 vars in 905 bytes} [Mon May 28 12:15:09 2018] GET /oa_core/overtime/ => generated 9616 bytes in 11 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
+status None
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<OvertimeTask: 1>, <OvertimeTask: 2>, <OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  9
+[pid: 1080|app: 0|req: 14/14] 127.0.0.1 () {44 vars in 909 bytes} [Mon May 28 12:15:11 2018] GET /oa_core/overtime/ => generated 9616 bytes in 11 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
+type_choice None
+status None
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<HolidayTask: 1>, <HolidayTask: 2>, <HolidayTask: 4>, <HolidayTask: 7>, <HolidayTask: 8>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  8
+[pid: 1080|app: 0|req: 15/15] 127.0.0.1 () {44 vars in 907 bytes} [Mon May 28 12:15:12 2018] GET /oa_core/holiday/ => generated 11185 bytes in 12 msecs (HTTP/1.1 200) 5 headers in 279 bytes (1 switches on core 0)
+type_choice None
+status None
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<CostTask: 1>, <CostTask: 2>, <CostTask: 4>, <CostTask: 5>, <CostTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  10
+[pid: 1080|app: 0|req: 16/16] 127.0.0.1 () {44 vars in 900 bytes} [Mon May 28 12:15:13 2018] GET /oa_core/cost/ => generated 10635 bytes in 10 msecs (HTTP/1.1 200) 5 headers in 279 bytes (1 switches on core 0)
+status None
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<OvertimeTask: 1>, <OvertimeTask: 2>, <OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  9
+[pid: 1080|app: 0|req: 17/17] 127.0.0.1 () {44 vars in 905 bytes} [Mon May 28 12:15:13 2018] GET /oa_core/overtime/ => generated 9616 bytes in 11 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
+status None
+create_date: 2018-05-18
+./oa_core/business/overtime_task.py:44: UnorderedObjectListWarning: Pagination may yield inconsistent results with an unordered object_list: <QuerySet [<OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>, <OvertimeTask: 7>, <OvertimeTask: 8>, <OvertimeTask: 9>, <OvertimeTask: 10>]>
+  paginator = Paginator(my_own_otask, 5)
+page_obj number : 1
+page_obj.obj_list : <QuerySet [<OvertimeTask: 4>, <OvertimeTask: 5>, <OvertimeTask: 6>, <OvertimeTask: 7>, <OvertimeTask: 8>]>
+page_obj.paginator.num_pages  2
+page_obj.paginator.count  7
+[pid: 1080|app: 0|req: 18/18] 127.0.0.1 () {44 vars in 1140 bytes} [Mon May 28 12:15:17 2018] GET /oa_core/overtime/?csrfmiddlewaretoken=3iQ5Camh5klRvUuyznEr8Qg2cQzpT4i8rp48kvOxNNAhAFkN7Ov7zAH3Szl9CdF2&create_date=2018-05-18&status= => generated 9636 bytes in 17 msecs (HTTP/1.1 200) 5 headers in 278 bytes (1 switches on core 0)
