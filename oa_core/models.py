@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.db import models
 from business.util import DeanUtil
+from ckeditor_uploader.fields import RichTextUploadingField
 
 def user_directory_path(instance, filename):
     #file_name可以获取文件本来的名称，这里进行文件名的md5化,现在文件将会存储在Mida_root/uploads/ymd/xxx
@@ -134,3 +135,13 @@ class CostTask(models.Model):
         return str(self.id)
 
 
+class News(models.Model):
+    id = models.AutoField(primary_key=True)
+    name = models.CharField(max_length=20)
+    content = RichTextUploadingField()
+    # 逻辑外键，创建人
+    sponsor = models.CharField(max_length=10)
+    create_date = models.DateField()
+
+    def __unicode__(self):
+        return str(self.id)

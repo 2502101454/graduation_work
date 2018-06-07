@@ -54,13 +54,15 @@
                 </table>
             </div>
         </div>
-        <div class="row" style="margin-top: 30px">
-            <div class="col-md-2 col-md-offset-4">
-                <a href="{% url "oa_core:user_info_update" %}" class="btn btn-info">编辑</a>
+        {% if id == request.session.user.id %}
+            <div class="row" style="margin-top: 30px">
+                <div class="col-md-2 col-md-offset-4">
+                    <a href="{% url "oa_core:user_info_update" %}" class="btn btn-info">编辑</a>
+                </div>
+                <div class="col-md-2">
+                    <a href="{% url "oa_core:user_password_update" %}" class="btn btn-warning">修改密码</a>
+                </div>
             </div>
-            <div class="col-md-2">
-                <a href="#" class="btn btn-warning">修改密码</a>
-            </div>
-        </div>
+        {% endif %}
     </div>
 {%endblock content%}

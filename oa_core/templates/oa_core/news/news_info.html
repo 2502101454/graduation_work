@@ -1,0 +1,20 @@
+{% extends "../index.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    新闻详情
+{% endblock title%}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 100px">
+            <div class="col-md-10 col-md-offset-2">
+                {% autoescape off %}
+                    {{ news.content }}
+                {% endautoescape %}
+            </div>
+        </div>
+    </div>
+
+{%endblock content%}
+

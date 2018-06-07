@@ -157,4 +157,59 @@ class UserUForm(forms.Form):
         return v_phone
 
 
+class UPasswordForm(forms.Form):
+    user_id = forms.CharField(error_messages={'required': '用户id不能为空'})
+    original_password = forms.CharField(max_length=10, min_length=3, widget=forms.PasswordInput,
+                               error_messages={
+                                   'required': '密码不能为空',
+                                   'min_length': '密码最少输入3位',
+                                   'max_length': '密码最多输入10位'
+                               })
+    new_password = forms.CharField(max_length=10, min_length=3, widget=forms.PasswordInput,
+                               error_messages={
+                                   'required': '密码不能为空',
+                                   'min_length': '密码最少输入3位',
+                                   'max_length': '密码最多输入10位'
+                               })
 
+    new_password2 = forms.CharField(max_length=10, min_length=3, widget=forms.PasswordInput,
+                                     error_messages={
+                                         'required': '密码不能为空',
+                                         'min_length': '密码最少输入3位',
+                                         'max_length': '密码最多输入10位'
+                                     })
+
+    def clean_original_password(self):
+        v_id = self.cleaned_data['user_id']
+        original_password = self.cleaned_data['original_password']
+        is_exist = False
+        if v_id.startswith('e'):
+            is_exist = Employee.objects.filter(Q(id=v_id), Q(password=original_password)).exists()
+        if v_id.startswith('m'):
+            is_exist = Manager.objects.filter(Q(id=v_id), Q(password=original_password)).exists()
+        if v_id.startswith('c'):
+            is_exist = Ceo.objects.filter(Q(id=v_id), Q(password=original_password)).exists()
+        if not is_exist:
+            self.add_error('original_password', '原始密码错误')
+        return original_password
+
+    def clean(self):
+        new_password = self.cleaned_data.get("new_password")
+        new_password2 = self.cleaned_data.get("new_password2")
+        if new_password and new_password2 and new_password == new_password2:
+            pass
+        else:
+            self.add_error('new_password2', '两次密码不一致')
+
+
+class SearchUserForm(forms.Form):
+    # char类型的字段，如果require为FALSE时，直接绑定一个空的get请求(不携带任何请求参数)，那么clean_data的值是空串。
+    user_id = forms.CharField(required=False)
+    name = forms.CharField(required=False)
+    page_no = forms.IntegerField(required=False)
+
+
+class SearchNewsForm(forms.Form):
+    create_date = forms.DateField(required=False)
+    name = forms.CharField(required=False)
+    page_no = forms.IntegerField(required=False)
