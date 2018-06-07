@@ -1,0 +1,103 @@
+{% extends "../index.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block title %}
+    公司新闻
+{% endblock title%}
+
+
+{% block css %}
+    <link href="{% static 'oa_core/kkpager/src/kkpager_blue.css' %}" rel="stylesheet">
+{% endblock css %}
+
+{% block content %}
+    <div class="container">
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-10 col-md-offset-2">
+                <form class="form-inline" action="{% url 'oa_core:company_news' %}" id="search_form">
+                    {% csrf_token %}
+                    <div class="form-group clearfix">
+                        <label for="create_date">发布日期</label>
+                        <input type="text" class="form-control" id="create_date" name="create_date"
+                               value="{{ search_condition.create_date|default_if_none:'' |date:"Y-m-d"}}">
+                    </div>
+                    <div class="form-group" style="margin-left: 10px">
+                        <label for="name">标题关键字</label>
+                        <input type="text" class="form-control" id="name" name="name" value="{{ search_condition.name }}"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-left: 30px">查询</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 20px">
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>id</th>
+                            <th>name</th>
+                            <th>create_date</th>
+                            <th>detail</th>
+                        </tr>
+                        {% for news in page_obj.object_list %}
+                        <tr>
+                            <td>{{ news.id}}</td>
+                            <td>{{ news.name}}</td>
+                            <td>{{ news.create_date|default_if_none:'' |date:"Y-m-d"}}</td>
+                            <td>
+                               <a href="{% url 'oa_core:show_news' news.id%}">详情</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                            <li>Sorry, no news here.</li>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                    <div id="kkpager"></div>
+            </div>
+        </div>
+    </div>
+
+{%endblock content%}
+
+{% block js %}
+    <script src="{% static 'oa_core/layDate-v5.0.9/laydate/laydate.js' %}"></script>
+    <script src="{% static 'oa_core/kkpager/src/kkpager.min.js' %}"></script>
+    <script>
+        //国际版
+        laydate.render({
+          elem: '#create_date'
+          ,lang: 'en'
+        });
+
+        //init kkpager
+        $(function(){
+            var totalPage = {{ page_obj.paginator.num_pages }};
+            var totalRecords = {{ page_obj.paginator.count }};
+            var pageNo = {{ page_obj.number }}
+            //生成分页
+            //有些参数是可选的，比如lang，若不传有默认值
+            kkpager.generPageHtml({
+                pno : pageNo,
+                //总页码
+                total : totalPage,
+                //总数据条数
+                totalRecords : totalRecords,
+                //链接前部
+                hrefFormer : '{% url "oa_core:company_news" %}',
+                //链接尾部
+                hrefLatter : "&create_date={{ search_condition.create_date|default_if_none:'' |date:"Y-m-d"}}"
+                             + "&name={{ search_condition.name }}",
+                getLink : function(n){
+                    return this.hrefFormer +"?page_no="+n + this.hrefLatter;
+                }
+            });
+        });
+    </script>
+{% endblock %}

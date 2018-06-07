@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -37,7 +36,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'oa_core'
+    'oa_core',
+    'ckeditor',
+    'ckeditor_uploader'
 ]
 
 MIDDLEWARE = [
@@ -127,6 +128,8 @@ STATIC_URL = '/static/'
 STATIC_ROOT = '/home/ubuntu/my_oa_demo_static_root'
 MEDIA_ROOT = '/home/ubuntu/my_oa_pics'
 MEDIA_URL = '/media/'
+
+CKEDITOR_UPLOAD_PATH = "ckEditor_uploads/"
 CACHES = {
     'default': {
         'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
