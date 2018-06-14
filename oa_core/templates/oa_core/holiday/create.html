@@ -27,7 +27,14 @@
                     </div>
                     <div class="form-group">
                         <label for="date_range">日期范围</label>
-                        <input type="text" class="form-control" id="date_range" name="date_range">
+                        <div class="layui-container">
+                            <div class="layui-row">
+                                <div class="layui-col-xs10 layui-col-sm6 layui-col-md4">
+                                    <input type="text" class="form-control" id="date_range" name="date_range">
+                                </div>
+                            </div>
+                        </div>
+
                         <span style="color: red">{{ errors.date_range }}</span>
                     </div>
                     <div class="form-group">
