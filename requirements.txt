@@ -138,7 +138,7 @@ urllib3==1.22
 vboxapi==1.0
 virtualenv==15.1.0
 webencodings==0.5.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 WTForms==2.1
 xattr==0.6.4
 XlsxWriter==1.0.2
