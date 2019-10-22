@@ -64,7 +64,7 @@ openpyxl==2.5.0
 ordereddict==1.1
 pandas==0.22.0
 paramiko==2.4.0
-Pillow==5.0.0
+Pillow==6.2.0
 psutil==4.4.2
 py2app==0.7.3
 py4j==0.10.4
