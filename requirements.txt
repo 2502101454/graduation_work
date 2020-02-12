@@ -19,7 +19,7 @@ configparser==3.5.0
 croniter==0.3.20
 cryptography==2.1.4
 dill==0.2.7.1
-Django==1.11.1
+Django==1.11.28
 django-gm2m==0.6.1
 docutils==0.14
 elasticsearch==6.0.0
