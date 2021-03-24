@@ -119,7 +119,7 @@ python-slugify==1.1.4
 pytz==2013.7
 PyYAML==3.12
 requests==2.18.4
-rsa==3.4.2
+rsa==4.1
 s3transfer==0.1.13
 scipy==0.13.0b1
 setproctitle==1.1.10
