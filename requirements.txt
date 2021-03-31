@@ -48,7 +48,7 @@ Jinja2==2.8.1
 jmespath==0.9.3
 lockfile==0.12.2
 luigi==2.7.3
-lxml==3.8.0
+lxml==4.6.3
 macholib==1.5.1
 Mako==1.0.7
 Markdown==2.6.11
